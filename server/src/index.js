@@ -16,4 +16,5 @@ app.use(route);
 app.listen(config.PORT, () => {
   console.log(`Example app listening on port ${config.PORT}`);
 });
-mongoose.connect(config.DB_URI);
+
+mongoose.connect(config.DB_URI).then(()=>console.log("DB Connected"));
