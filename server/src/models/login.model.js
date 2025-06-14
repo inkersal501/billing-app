@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const loginSchema = mongoose.Schema(
+const loginSchema = new mongoose.Schema(
     { 
         email: { type: String, required: true, trim: true, lowercase: true },
         token : { type: String, required: true } 
