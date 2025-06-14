@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+#root {
+  max-width: 100%;
+  margin: 0px;
+  padding: 0px;
+  color: #af6e38;
+  background: #fff;
+}
+.bg-primary {
+  background-color: #af6e38;
+  color: #fff;
+}
+.border-primary{
+  border: 1px solid #af6e38;  
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+.h1,
+h1 {
+  font-size: 2.5rem;
+}
+.h2,
+h2 {
+  font-size: 2rem;
+}
+.h3,
+h3 {
+  font-size: 1.75rem;
+}
+.h4,
+h4 {
+  font-size: 1.5rem;
+}
+.h5,
+h5 {
+  font-size: 1.25rem;
+}
+.h6,
+h6 {
+  font-size: 1rem;
+}
+
+.input {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+.input:focus,
+.input:focus-visible {
+  border: 1px solid #af6e38;
+  outline: 1px solid #af6e38;
+}
+.input:-internal-autofill-selected{
+  background-color: #fff !important;
+}
+.btn {
+  color: #fff;
+  background: #af6e38;
+  border: 1px solid #af6e38;
+  border-radius: 6px;
+  padding: 6px 18px;
+  cursor: pointer;
+}
+.nav-link {
+  padding: 0px 8px;
+  margin: 0px 12px;
+  cursor: pointer;
+  border-radius: 0px;  
+  position: relative;
+}
+.nav-link::after, .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 2px;
+  background: #fff;
+  transition: width 0.4s ease;
+}
+
+.nav-link:hover::after,.nav-link.active::after {
+  width: 100%;
+}
+.nav-brand {
+  padding: 6px 18px;
+  cursor: pointer;
+}
