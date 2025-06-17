@@ -1,12 +1,22 @@
 import React from 'react'
 import Logo from './Logo'
-import { useSelector } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { logout } from '../store/authSlice';
  
 function Navbar() {
 
     const user = useSelector((state) => state.auth.user);
     const location = useLocation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        dispatch(logout());
+        navigate("/");
+        window.location.reload;
+    }
     return (
         <div className='bg-primary h-max-[10vh] flex justify-between items-center'>
             <div className='w-[50%] flex items-center gap-5'>
@@ -20,7 +30,7 @@ function Navbar() {
                 <Link to="/bills"><span className={`nav-link ${location.pathname=='/bills'?'active':''}`}>Bills</span></Link>
                 <Link to="/products"><span className={`nav-link ${location.pathname=='/products'?'active':''}`}>Products</span> </Link>
                 
-                <a href="#" className='nav-link'>Logout</a>
+                <a href="#" onClick={handleLogout} className='nav-link'>Logout</a>
             </div>
         </div>
     )

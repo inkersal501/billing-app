@@ -14,4 +14,17 @@ const fetchProducts = async (token) => {
         return {status: false, error};
     }
 }
-export { fetchProducts };
+
+const addProduct = async (product, token) => {
+    try {
+        const result = await axios.post(`${apiEndpoint}/products`, {...product}, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        if(result.status === 201){        
+            return {status: true, data : result.data};
+        }
+    } catch (error) {
+        return {status: false, error};
+    }
+}
+export { fetchProducts, addProduct };

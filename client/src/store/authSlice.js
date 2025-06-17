@@ -19,6 +19,8 @@ const authSlice = createSlice({
     logout : (state) => {
       state.user = defaultState.auth.user;
       state.isLoggedin = defaultState.auth.isLoggedin; 
+      localStorage.setItem("isLoggedin", JSON.stringify(defaultState.auth.isLoggedin));
+      localStorage.setItem("user", JSON.stringify(defaultState.auth.user));
     }, 
   },
 });

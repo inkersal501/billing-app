@@ -1,90 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import Modal from 'react-modal';
 
-function Addproduct() {
+const Addproduct = ({ isOpen, onRequestClose, onSubmit }) => {
+  const [form, setForm] = useState({ name: "",  price: "",  unit: "",  measure: "" });
 
-  const [name, setName] = useState('');
-  const [unit, setUnit] = useState('');
-  const [price, setPrice] = useState('');
-  const [measure, setMeasure] = useState(''); 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (name  && unit && price && measure) {
-    //   onAddProduct({ name, unit, price, measure});
-      setName('');
-      setUnit('');
-      setPrice('');
-      setMeasure('');
-    //   onClose();
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-//   if (!isOpen) return null;
+  const handleSubmit = async () => {
+    if (!form.name || !form.price || !form.unit || !form.measure) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    await onSubmit(form);  
+    onRequestClose();      
+    setForm({ name: "", price: "", unit: "", measure: "" });
+  };
+
+  if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <div className="modal-header">
-          <h2>Add Product</h2>
-          <button onClick={""} className="close-button">
-            &times;
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="Add Product"
+      className="bg-white p-6 rounded-xl w-[90%] max-w-md mx-auto mt-20 outline-none"
+      overlayClassName="fixed inset-0 modal-overlay bg-opacity-50 flex justify-center items-start z-50"
+    >
+        <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
+
+        <div className="space-y-3">
+          <input name="name" value={form.name} onChange={handleChange}
+            className="w-full border px-3 py-2 rounded-md" placeholder="Product Name *" />
+          <input name="price" value={form.price} onChange={handleChange}
+            type="number" className="w-full border px-3 py-2 rounded-md" placeholder="Price *" />
+          <input name="unit" value={form.unit} onChange={handleChange}
+            className="w-full border px-3 py-2 rounded-md" placeholder="Unit (e.g. 1 2 5 10)" />
+          <input name="measure" value={form.measure} onChange={handleChange}
+            className="w-full border px-3 py-2 rounded-md" placeholder="Measure (e.g. kg, ltr, gram, cup)" /> 
+        </div>
+
+        <div className="mt-5 flex justify-end gap-3">
+          <button onClick={onRequestClose}
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md">
+            Cancel
+          </button>
+          <button onClick={handleSubmit}
+            className="btn">
+            Add Product
           </button>
         </div>
-        <div className="modal-body">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="unit">Unit:</label>
-              <input
-                type="number"
-                id="unit"
-                value={unit}
-                onChange={(e) => setUnit(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="price">Price:</label>
-              <input
-                type="number"
-                id="price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="measure">Measurement:</label>
-              <input
-                type="text"
-                id="measure"
-                value={measure}
-                onChange={(e) => setMeasure(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-actions">
-              <button type="submit" className="btn">
-                Add Product
-              </button>
-              <button onClick={""} className="px-8">
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  )
-}
+    </Modal>
+  );
+};
 
 export default Addproduct;
