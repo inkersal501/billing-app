@@ -27,6 +27,15 @@ const update = async (req, res) => {
   }
 };
 
+const updateStatus = async (req, res) => {
+  try {
+    const updated = await productService.updateProductStatus(req.params.id, req.body);
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 const remove = async (req, res) => {
   try {
     await productService.deleteProduct(req.params.id);
@@ -36,4 +45,4 @@ const remove = async (req, res) => {
   }
 };
 
-export default { add, getAll, update, remove };
+export default { add, getAll, update, updateStatus, remove };

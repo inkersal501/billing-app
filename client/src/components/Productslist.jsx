@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { updateProducts } from "../store/productSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, fetchProducts } from "../js/product";
+import { addProduct, fetchProducts, updateStatus } from "../js/product";
 import Productcard from "./Productcard";
 import Addproduct from "./Addproduct";
 
@@ -14,6 +14,11 @@ function Productslist() {
     const [showModal, setShowModal] = useState(false);
     const [search, setSearch] = useState("");
 
+    // const sortProducts = (sortBy) => {
+    //     if(sortBy === "status") {
+
+    //     }
+    // };
     useEffect(() => {
         const fetch = async () => {
             const result = await fetchProducts(user.token);  
@@ -45,6 +50,15 @@ function Productslist() {
        //eslint-disable-next-line
     }, [search])
     
+    const handleUpdateStatus =  async (productId, status) => {
+        const result = await updateStatus(productId, status, user.token);
+        if(result.status) {
+            const productUpdate = products.map((product)=> (product._id===productId) ?{ ...product, status } : product );
+            dispatch(updateProducts([...productUpdate])); 
+            setProductsData([...productUpdate]);
+        }
+    }
+
     return (
         <div className="px-4">
             <div className="flex justify-between items-center">
@@ -58,7 +72,7 @@ function Productslist() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 my-4">
                 {productsData.length > 0 &&
                 productsData.map((product, index) => (
-                    <Productcard key={index} product={product} />
+                    <Productcard key={index} product={product} handleUpdateStatus={handleUpdateStatus}/>
                 ))}
             </div>
             <Addproduct

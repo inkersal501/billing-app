@@ -7,7 +7,7 @@ import {Provider} from "react-redux";
 import store from './store/store.js';
 
 import Modal from 'react-modal';
-Modal.setAppElement('#root');
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,3 +17,4 @@ createRoot(document.getElementById('root')).render(
     </Provider>
   </StrictMode>,
 )
+Modal.setAppElement('#root');

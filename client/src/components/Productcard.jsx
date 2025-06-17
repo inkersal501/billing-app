@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Productcard({product}) {
+function Productcard({product, handleUpdateStatus}) {
     return (
         <div className="bg-white border border-[#ccc] shadow-md rounded-2xl p-4 hover:shadow-lg transition duration-300 w-xs">
             <div className="flex">
@@ -11,7 +11,17 @@ function Productcard({product}) {
                     <h6>{product.unit}{product.measure}</h6>
                 </div>
             </div> 
-            <div className="text-green-600 font-bold text-lg">₹{product.price}</div>
+            <div className="flex justify-between items-center">
+                <div className="text-green-600 font-bold text-lg w-[50%]">₹{product.price}</div>
+                <div className='w-[50%]'>
+                    <select id={`status${product._id}`} value={product.status}
+                     onChange={(e)=>handleUpdateStatus(product._id, e.target.value)} 
+                     className={`${product.status==="Available"?'text-[green]':'text-[red]'} w-auto text-center appearance-none border border-[#ccc] text-xs px-2`}>
+                        <option value="Available">Available</option>
+                        <option value="Not Available">Not Available</option>
+                    </select>
+                </div>
+            </div>
         </div>
     );
 }

@@ -27,4 +27,17 @@ const addProduct = async (product, token) => {
         return {status: false, error};
     }
 }
-export { fetchProducts, addProduct };
+
+const updateStatus = async (product, status, token) => {
+    try {
+        const result = await axios.patch(`${apiEndpoint}/products/status/${product}`, {status}, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        if(result.status === 200){        
+            return {status: true};
+        }
+    } catch (error) {
+        return {status: false, error};
+    }
+}
+export { fetchProducts, addProduct, updateStatus };

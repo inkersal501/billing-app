@@ -5,8 +5,8 @@ const addProduct = async (data) => {
   return result;
 };
 const getProducts = async () => await productModel.find();
-const updateProduct = async (id, data) =>
-  await productModel.findByIdAndUpdate(id, data, { new: true });
+const updateProduct = async (id, data) => await productModel.findByIdAndUpdate(id, data, { new: true });
+const updateProductStatus = async (id, data) => await productModel.findByIdAndUpdate(id, {status: data.status}, { new: true });
 const deleteProduct = async (id) => await productModel.findByIdAndDelete(id);
 
-export default { addProduct, getProducts, updateProduct, deleteProduct };
+export default { addProduct, getProducts, updateProduct, updateProductStatus, deleteProduct };

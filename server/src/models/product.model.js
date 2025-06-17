@@ -6,6 +6,7 @@ const productSchema = new mongoose.Schema(
     price: Number,
     unit: String,
     measure: String,
+    status: {type: String, default: "Available"}, 
   },
   { timestamps: true }
 );
