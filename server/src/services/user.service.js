@@ -22,7 +22,7 @@ const loginUser = async ({ email, password }) => {
     throw new Error("Invalid credentials");
 
   const token = jwt.sign({ id: user._id }, config.jwtSecret, {
-    expiresIn: "1d",
+    expiresIn: config.jwtExpire,
   });
   const {name, phone, role} = user;
   await loginModel.create({email, token});

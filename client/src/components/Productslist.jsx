@@ -14,11 +14,6 @@ function Productslist() {
     const [showModal, setShowModal] = useState(false);
     const [search, setSearch] = useState("");
 
-    // const sortProducts = (sortBy) => {
-    //     if(sortBy === "status") {
-
-    //     }
-    // };
     useEffect(() => {
         const fetch = async () => {
             const result = await fetchProducts(user.token);  
@@ -69,7 +64,7 @@ function Productslist() {
                 <button className="btn" onClick={() => setShowModal(true)}>Add new Product</button>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 my-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-4">
                 {productsData.length > 0 &&
                 productsData.map((product, index) => (
                     <Productcard key={index} product={product} handleUpdateStatus={handleUpdateStatus}/>
