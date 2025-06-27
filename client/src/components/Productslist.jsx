@@ -64,7 +64,7 @@ function Productslist() {
                 <button className="btn" onClick={() => setShowModal(true)}>Add new Product</button>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-4 px-4">
                 {productsData.length > 0 &&
                 productsData.map((product, index) => (
                     <Productcard key={index} product={product} handleUpdateStatus={handleUpdateStatus}/>

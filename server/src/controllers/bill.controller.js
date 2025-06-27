@@ -10,8 +10,9 @@ const create = async (req, res) => {
 };
 
 const getAll = async (req, res) => {
+  const { startDate, endDate } = req.query;
   try {
-    const bills = await billService.getBills();
+    const bills = await billService.getBills(startDate, endDate);
     res.json(bills);
   } catch (err) {
     res.status(500).json({ error: err.message });

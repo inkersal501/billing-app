@@ -2,7 +2,7 @@ import React from 'react'
 
 function Productcard({product, handleUpdateStatus}) {
     return (
-        <div className="bg-white border border-[#ccc] shadow-md rounded-2xl p-4 hover:shadow-lg transition duration-300 w-xs">
+        <div className="bg-white border border-[#ccc] shadow-md rounded-2xl p-4 hover:shadow-lg hover:border-[#999] transition duration-300 w-xs">
             <div className="flex justify-between items-center">
                 <div className="w-[70%]">
                     <h5>{product.name}</h5>

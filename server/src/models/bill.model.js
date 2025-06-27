@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const billSchema = new mongoose.Schema(
   {
+    billNumber: {
+      type: Number,
+      unique: true,
+      required: true,
+    },
     customer: { type: mongoose.Schema.Types.ObjectId, ref: "Customer" },
     products: [
       {

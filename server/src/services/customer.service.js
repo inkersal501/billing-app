@@ -1,6 +1,6 @@
 import { customerModel } from "../models/index.js";
 
-const addCustomer = async (data) => await new customerModel(data).save();
+const addCustomer = async (data) => await customerModel.create(data).save();
 const getCustomers = async () => await customerModel.find();
 const updateCustomer = async (id, data) => await customerModel.findByIdAndUpdate(id, data, { new: true });
 const deleteCustomer = async (id) => await customerModel.findByIdAndDelete(id);

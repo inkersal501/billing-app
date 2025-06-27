@@ -3,28 +3,41 @@ import { billModel, productModel } from "../models/index.js";
 const createBill = async (data) => {
   let total = 0;
   for (const item of data.products) {
-    const product = await productModel.findById(item.product);
-    if (!product || product.stock < item.quantity) {
-      throw new Error(
-        `Insufficient stock for ${product?.name || "Unknown Product"}`
-      );
-    }
-    product.stock -= item.quantity;
-    await product.save();
-    total += item.quantity * product.price;
-    item.price = product.price;
+    const product = await productModel.findById(item.product);     
+    total += item.quantity * product.price; 
   }
+  const lastBill = await billModel.findOne().sort({ billNumber: -1 }).limit(1);
+  const nextBillNumber = lastBill ? lastBill.billNumber + 1 : 1;
 
-  const bill = new billModel({
+  const newBill = await billModel.create({
+    billNumber: nextBillNumber,
     customer: data.customer,
     products: data.products,
     totalAmount: total,
   });
-
-  return await bill.save();
+  const bill = await billModel.findById(newBill._id).populate("customer").populate("products.product");
+  return bill;
 };
 
-const getBills = async () =>
-  await billModel.find().populate("customer").populate("products.product");
+const getBills = async (startDate, endDate) => {
+  let filter = {};
+  if (startDate && endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    filter.date = {
+      $gte: new Date(start.setHours(0, 0, 0, 0)),
+      $lte: new Date(end.setHours(23, 59, 59, 999)),
+    };
+  } else {
+    // default: today
+    const today = new Date();
+    const start = new Date(today.setHours(0, 0, 0, 0));
+    const end = new Date(today.setHours(23, 59, 59, 999));
+    filter.date = { $gte: start, $lte: end };
+  }
+
+  const bills = await billModel.find(filter).populate("customer").populate("products.product");
+  return bills;
+};
 
 export default { createBill, getBills };
