@@ -56,7 +56,7 @@ function Productslist() {
 
     return (
         <div className="px-4">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center py-4">
                 <h1>Available Products</h1>
                 <div className="">
                     <input type="text" id="search" onChange={(e)=>setSearch(e.target.value)} value={search} className="input" placeholder="Search..."/>

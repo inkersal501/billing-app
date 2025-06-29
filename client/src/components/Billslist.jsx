@@ -10,6 +10,7 @@ const Billslist = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const loadBills = async (start, end) => {
     let url = "";
@@ -41,7 +42,13 @@ const Billslist = () => {
   const handleAddBill = (bill) => {
     setBills((prev)=>[...prev, bill]);
   }
-console.log(bills)
+  useEffect(()=>{ 
+    const totalAmount = bills.reduce((accumulator, bill) => {
+      return accumulator + bill.totalAmount;
+    }, 0);
+    setTotalAmount(totalAmount);
+  }, [bills])
+// console.log(bills)
   return (
     <div className="px-4">
       <div className="flex justify-between items-center py-4">
@@ -95,7 +102,8 @@ console.log(bills)
           </thead>
           <tbody>
             {bills.map((bill, index) => (
-              <tr key={bill._id}>
+              
+              <tr key={bill._id}> 
                 <td className="border px-2 py-2">{index+1}</td>
                 <td className="border px-4 py-2">{bill.billNumber || "-"}</td>
                 <td className="border px-4 py-2">
@@ -120,14 +128,26 @@ console.log(bills)
             {bills.length === 0 && (
               <tr>
                 <td
-                  colSpan="5"
+                  colspan="5"
                   className="text-center text-gray-500 py-6"
                 >
                   No bills found.
                 </td>
               </tr>
+              
             )}
           </tbody>
+          {bills.length > 0 && (
+            <tfoot className="bg-primary">
+              <tr>
+                <td colspan="4" className="text-end border px-4 py-2" >
+                  Total
+                </td>
+                <td className="border px-4 py-2">₹ {totalAmount.toFixed(2)}</td>
+                <td className="border px-4 py-2"></td>
+              </tr>
+            </tfoot>
+          )}          
         </table>
       </div>
       <AddBill

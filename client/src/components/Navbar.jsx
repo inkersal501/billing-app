@@ -26,9 +26,9 @@ function Navbar() {
                 </div>
             </div>
             <div className='w-[50%] flex gap-4 justify-end px-4'>
-                <Link to="/dashboard"><span className={`nav-link ${location.pathname=='/dashboard'?'active':''}`}>Dashboard</span></Link>
-                <Link to="/bills"><span className={`nav-link ${location.pathname=='/bills'?'active':''}`}>Bills</span></Link>
-                <Link to="/products"><span className={`nav-link ${location.pathname=='/products'?'active':''}`}>Products</span> </Link>
+                <Link to="/bills/dashboard"><span className={`nav-link ${location.pathname=='/bills/dashboard'?'active':''}`}>Dashboard</span></Link>
+                <Link to="/bills/dailybills"><span className={`nav-link ${location.pathname=='/bills/dailybills'?'active':''}`}>Bills</span></Link>
+                <Link to="/bills/products"><span className={`nav-link ${location.pathname=='/bills/products'?'active':''}`}>Products</span> </Link>
                 
                 <a href="#" onClick={handleLogout} className='nav-link'>Logout</a>
             </div>

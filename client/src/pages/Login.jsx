@@ -34,7 +34,7 @@ function Login() {
       const user = await handleLogin(email, password);
       if (user) {
         dispatch(login({ ...user }));
-        navigate("/dashboard");
+        navigate("/bills/dashboard");
       }
     }
   }   

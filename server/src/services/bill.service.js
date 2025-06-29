@@ -36,7 +36,7 @@ const getBills = async (startDate, endDate) => {
     filter.date = { $gte: start, $lte: end };
   }
 
-  const bills = await billModel.find(filter).populate("customer").populate("products.product");
+  const bills = await billModel.find(filter).populate("customer").populate("products.product").sort({date:-1});
   return bills;
 };
 
