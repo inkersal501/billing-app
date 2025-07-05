@@ -14,4 +14,18 @@ const fetchCustomers = async (token) => {
         return {status: false, error};
     }
 }
-export { fetchCustomers };
+const searchCustomersbyPhone = async (phone, token) => {
+
+    try {
+        const result = await axios.get(`${apiEndpoint}/customers/search/phone/${phone}`, {
+            headers: { Authorization: `Bearer ${token}`}
+        });
+        if(result.status === 200){        
+            return {status: true, data : result.data};
+        }
+    } catch (error) { 
+        return {status: false, error};
+    }
+}
+
+export { fetchCustomers, searchCustomersbyPhone };

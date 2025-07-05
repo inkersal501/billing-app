@@ -1,6 +1,12 @@
-import { billModel, productModel } from "../models/index.js";
+import { billModel, customerModel, productModel } from "../models/index.js";
 
 const createBill = async (data) => {
+  let customer
+  if(data.customer) {
+    customer = await customerModel.create({...data.customer});
+  }else{
+    customer = await customerModel.find({name: "Anonymous"});
+  }
   let total = 0;
   for (const item of data.products) {
     const product = await productModel.findById(item.product);     
@@ -11,7 +17,7 @@ const createBill = async (data) => {
 
   const newBill = await billModel.create({
     billNumber: nextBillNumber,
-    customer: data.customer,
+    customer: customer._id,
     products: data.products,
     totalAmount: total,
   });

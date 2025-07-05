@@ -67,7 +67,7 @@ const Billslist = () => {
             <div>
               <label className="block text-sm">End Date</label>
               <input
-                type="date"
+                type="date" 
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
                 className="input"
@@ -128,7 +128,7 @@ const Billslist = () => {
             {bills.length === 0 && (
               <tr>
                 <td
-                  colspan="5"
+                  colSpan="5"
                   className="text-center text-gray-500 py-6"
                 >
                   No bills found.
@@ -140,7 +140,7 @@ const Billslist = () => {
           {bills.length > 0 && (
             <tfoot className="bg-primary">
               <tr>
-                <td colspan="4" className="text-end border px-4 py-2" >
+                <td colSpan="4" className="text-end border px-4 py-2" >
                   Total
                 </td>
                 <td className="border px-4 py-2">₹ {totalAmount.toFixed(2)}</td>

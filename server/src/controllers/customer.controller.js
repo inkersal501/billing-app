@@ -18,6 +18,15 @@ const getAll = async (req, res) => {
   }
 };
 
+const getByPhone = async (req, res) => {
+  try {
+    const customers = await customerService.getCustomersByPhone(req.params.phone);
+    res.json(customers);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 const update = async (req, res) => {
   try {
     const updated = await customerService.updateCustomer(
@@ -39,4 +48,5 @@ const remove = async (req, res) => {
   }
 };
 
-export default { add, getAll, update, remove };
+
+export default { add, getAll, getByPhone, update, remove };

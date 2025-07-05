@@ -51,6 +51,8 @@ h6 {
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 6px 12px;
+  background-color: #fff;
+  background: #fff; 
 }
 .input:focus,
 .input:focus-visible {
