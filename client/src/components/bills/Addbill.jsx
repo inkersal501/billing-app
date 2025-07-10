@@ -65,6 +65,7 @@ const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
   };
 
   const handleAddProduct = () => {
+
     setBillProducts((prev) => [
       ...prev,
       {
@@ -108,14 +109,13 @@ const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
       alert("Please add at least one product");
       return;
     }
+    if(!billProducts[0].productId){
+      alert("Please add product");
+      return;
+    }
 
     const payload = {
-      customer: isAnonymous
-        ? null
-        : {
-            name: cName,
-            phone: cMobile,
-          },
+      customer: isAnonymous ? null : { name: cName, phone: cMobile, },
       products: billProducts.map((item) => ({
         product: item.productId,
         quantity: Number(item.quantity),
@@ -168,7 +168,7 @@ const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
                 className="w-full border p-2 rounded-md"
               />
               {customers.length > 0 && (
-                <ul className="absolute w-full bg-white border border-gray-300 rounded shadow mt-1 max-h-60 overflow-auto z-10">
+                <ul className="absolute w-100 bg-white border border-gray-300 rounded shadow mt-1 max-h-60 overflow-auto z-10">
                   {customers.map((cust) => (
                     <li
                       key={cust._id}
@@ -230,6 +230,7 @@ const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
               onChange={(e) =>
                 handleProductChange(index, "price", e.target.value)
               }
+              readOnly
             />
 
             <button

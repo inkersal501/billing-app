@@ -51,9 +51,17 @@ h6 {
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 6px 12px;
+  color: #af6e38;
   background-color: #fff;
   background: #fff; 
 }
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(35%) sepia(100%) saturate(500%) hue-rotate(200deg);
+}
+input[type="checkbox"] {
+  accent-color: #fff;
+}
+
 .input:focus,
 .input:focus-visible {
   border: 1px solid #af6e38;
@@ -61,6 +69,12 @@ h6 {
 }
 .input:-internal-autofill-selected{
   background-color: #fff !important;
+}
+input::file-selector-button{
+  color: #222 !important;
+}
+button{
+  cursor: pointer;
 }
 .btn {
   color: #fff;

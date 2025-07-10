@@ -1,12 +1,15 @@
 import { billModel, customerModel, productModel } from "../models/index.js";
 
 const createBill = async (data) => {
-  let customer
+  let customer;
   if(data.customer) {
-    customer = await customerModel.create({...data.customer});
+    customer = await customerModel.findOne({phone: data.customer.phone});
+    if(!customer) 
+      customer = await customerModel.create({...data.customer});
   }else{
-    customer = await customerModel.find({name: "Anonymous"});
+    customer = await customerModel.findOne({name: "Anonymous"});
   }
+  // console.log(customer)
   let total = 0;
   for (const item of data.products) {
     const product = await productModel.findById(item.product);     

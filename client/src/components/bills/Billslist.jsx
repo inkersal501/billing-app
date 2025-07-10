@@ -79,11 +79,16 @@ const Billslist = () => {
                 className="btn"
               >
                 Filter
+              </button> 
+              <button className="btn ms-2">
+                Download
               </button>
             </div>
           </div>
         </div>
-        <button className="btn" onClick={() => setShowModal(true)}>New Bill</button>
+        <div>
+          <button className="btn" onClick={() => setShowModal(true)}>New Bill</button>
+        </div>
       </div> 
       
 
@@ -131,7 +136,7 @@ const Billslist = () => {
                   colSpan="5"
                   className="text-center text-gray-500 py-6"
                 >
-                  No bills found.
+                  No bills till now.
                 </td>
               </tr>
               

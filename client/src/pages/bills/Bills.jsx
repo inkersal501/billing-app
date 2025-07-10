@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-import Billslist from '../components/Billslist'
+import Navbar from '../components/bills/Navbar'
+import Billslist from '../components/bills/Billslist'
 
 function Bills() {
   return (

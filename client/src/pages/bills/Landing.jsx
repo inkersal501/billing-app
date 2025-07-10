@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Logo from '../components/Logo'
+import Logo from '../components/bills/Logo'
 
 function Landing() {
 

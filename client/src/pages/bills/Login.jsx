@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Logo from "../components/Logo";
+import Logo from "../components/bills/Logo";
 import { toast } from "react-toastify";
 import { handleLogin } from "../js/auth";
 import { useDispatch } from "react-redux";
