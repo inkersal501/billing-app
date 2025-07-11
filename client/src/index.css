@@ -6,13 +6,14 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #ffffff;
+  --primary : #00a63e;
 }
 
 body {
   margin: 0px; 
   padding: 0px;
   max-height: 100vh;
-  color: #af6e38;
+  color: var(--primary);
   background-color: #fff;
 }
 h1,h2,h3,h4,h5,h6{

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { fetchProducts } from "../js/product";
+import { fetchProducts } from "../../js/product";
 import { useSelector } from "react-redux";
-import { addBill } from "../js/bill";
-import { searchCustomersbyPhone } from "../js/customer";
+import { addBill } from "../../js/bill";
+import { searchCustomersbyPhone } from "../../js/customer";
 
 const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
   const user = useSelector((state) => state.auth.user);
@@ -151,11 +151,12 @@ const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
+            className="appearance-none w-5 h-5 border-2 border-green-600 rounded-sm checked:bg-green-600 checked:border-green-600 transition-colors duration-200"
             checked={isAnonymous}
             onChange={(e) => setIsAnonymous(e.target.checked)}
           />
           <span>Anonymous Customer</span>
-        </label>
+        </label> 
 
         {!isAnonymous && (
           <div className="flex flex-col gap-3">

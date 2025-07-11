@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    company: {type: mongoose.Schema.Types.ObjectId, ref:"Company" },
     name: String,
     email: { type: String, unique: true },
     phone: { type: String, unique: true },

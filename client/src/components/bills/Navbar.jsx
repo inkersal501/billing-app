@@ -2,7 +2,7 @@ import React from 'react'
 import Logo from './Logo'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { logout } from '../store/authSlice';
+import { logout } from '../../store/authSlice';
  
 function Navbar() {
 

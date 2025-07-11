@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Logo from "../components/bills/Logo";
+import Logo from "../../components/bills/Logo";
 import { toast } from "react-toastify";
-import { handleLogin } from "../js/auth";
+import { handleLogin } from "../../js/auth";
 import { useDispatch } from "react-redux";
-import { login } from "../store/authSlice";
+import { login } from "../../store/authSlice";
 import { useNavigate } from 'react-router-dom'; 
 
 function Login() {
@@ -43,8 +43,11 @@ function Login() {
   const formattedTime = currentTime.toLocaleTimeString("en-IN");
 
   return (
-    <div className="bg-white flex items-start h-screen p-0 m-0">
-      <div className="w-[40%] h-full border-e-4 border-[#af6e38] p-4">
+    <div className="bg-white flex flex-wrap items-start h-screen p-0 m-0">
+      <div className="w-[100%] bg-primary px-4 py-2 mb-15">
+        <h1>Daily Bills</h1>
+      </div>
+      <div className="w-[40%] h-full p-4">
         <Logo width="100%"/>
         <div className="text-center">
           <h2>{formattedDate}</h2>
@@ -52,9 +55,7 @@ function Login() {
         </div>
       </div>
       <div className="w-[60%]">
-        <div className="bg-primary px-4 py-2 mb-15">
-          <h1>Daily Bills</h1>
-        </div>
+        
         <form onSubmit={handleSubmit}>
           <div className="flex justify-center">
             <div className="w-[50%] shadow-lg rounded-2xl border-primary py-5">

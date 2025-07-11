@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/bills/Login';
 import Dashboard from './pages/bills/Dashboard'; 
 import Bills from './pages/bills/Bills'; 
-import Landing from './pages/bills/Landing';
+import Landing from './pages/Landing';
 import Products from './pages/bills/Products';
    
 function App() { 
@@ -18,6 +18,10 @@ function App() {
         <Route path="/bills/dashboard" element={<Dashboard />} />
         <Route path="/bills/dailybills" element={<Bills />} />
         <Route path="/bills/products" element={<Products />} />
+
+        {/* admin */}
+        {/* <Route path="/admin" element={<Login />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />  */}
 
 
         <Route path="/" element={<Landing />} /> 

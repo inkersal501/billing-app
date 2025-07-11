@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchBills } from "../js/bill";
+import { fetchBills } from "../../js/bill";
 import { useSelector } from "react-redux";
 import {
   LineChart,

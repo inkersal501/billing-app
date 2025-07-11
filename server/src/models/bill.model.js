@@ -7,6 +7,7 @@ const billSchema = new mongoose.Schema(
       unique: true,
       required: true,
     },
+    company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
     customer: { type: mongoose.Schema.Types.ObjectId, ref: "Customer" },
     products: [
       {
