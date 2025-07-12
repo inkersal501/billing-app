@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Logo from "../../components/bills/Logo";
+import Logo from "@components/bills/Logo";
 import { toast } from "react-toastify";
-import { handleLogin } from "../../js/auth";
+import { handleLogin } from "@js/bills/auth";
 import { useDispatch } from "react-redux";
-import { login } from "../../store/authSlice";
+import { login } from "@store/authSlice";
 import { useNavigate } from 'react-router-dom'; 
 
 function Login() {

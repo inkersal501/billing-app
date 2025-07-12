@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { fetchProducts } from "../../js/product";
+import { fetchProducts } from "@js/bills/product";
 import { useSelector } from "react-redux";
-import { addBill } from "../../js/bill";
-import { searchCustomersbyPhone } from "../../js/customer";
+import { addBill } from "@js/bills/bill";
+import { searchCustomersbyPhone } from "@js/bills/customer";
 
 const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
   const user = useSelector((state) => state.auth.user);

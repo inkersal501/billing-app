@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { defaultState } from "../js/config";
+import { defaultState } from "@js/bills/config";
 
 const initialState = {list: defaultState.products.list};
 

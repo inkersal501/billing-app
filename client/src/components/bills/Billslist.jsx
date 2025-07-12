@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchBills } from "../../js/bill";
+import { fetchBills } from "@js/bills/bill";
 import AddBill from "./Addbill";
 import { useSelector } from "react-redux";
  
