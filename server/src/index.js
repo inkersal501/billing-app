@@ -3,6 +3,7 @@ import cors from "cors";
 import config from "./config/config.js";
 import route from "./routes/index.js";
 import mongoose from "mongoose";
+
 const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());

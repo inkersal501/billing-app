@@ -8,6 +8,8 @@ import Landing from '@pages/Landing';
 import BillsProducts from '@pages/bills/Products';
 // Admin Import
 import AdminLogin from "@pages/admin/Login";
+import AdminDashboard from "@pages/admin/Dashboard";
+import AddCustomer from '@pages/admin/AddCustomer';
 
 function App() { 
    
@@ -24,8 +26,8 @@ function App() {
 
         {/* admin */}
         <Route path="/admin" element={<AdminLogin />} />
-        {/* <Route path="/admin/dashboard" element={<Dashboard />} />  */}
-
+        <Route path="/admin/dashboard" element={<AdminDashboard />} /> 
+        <Route path="/admin/add-customer" element={<AddCustomer />} />
 
         <Route path="/" element={<Landing />} /> 
         <Route path="*" element={<Navigate to="/" />} /> 

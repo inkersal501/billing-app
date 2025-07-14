@@ -1,4 +1,4 @@
-import {apiEndpoint} from "./config"; 
+import {apiEndpoint} from "../config"; 
 import axios from "axios"; 
 
 const addBill = async (billdata, token) => {

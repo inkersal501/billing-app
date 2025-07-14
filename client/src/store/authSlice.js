@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"; 
-import { defaultState } from "@js/bills/config";
+import { defaultState } from "@js/config";
 
 const initialState = { 
   isLoggedin : localStorage.getItem("isLoggedin") || defaultState.auth.isLoggedin,

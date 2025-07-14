@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"; 
 import { toast } from "react-toastify";
-import { handleLogin } from "@js/bills/auth";
+import { handleLogin } from "@js/admin/auth";
 import { useDispatch } from "react-redux";
-import { login } from "@store/authSlice";
+import { login } from "@store/adminSlice";
 import { useNavigate } from 'react-router-dom'; 
+import Header from "@components/admin/Header";
 
 function Login() {
 
@@ -33,7 +34,7 @@ function Login() {
       const user = await handleLogin(email, password);
       if (user) {
         dispatch(login({ ...user }));
-        navigate("/bills/dashboard");
+        navigate("/admin/dashboard");
       }
     }
   }   
@@ -43,9 +44,7 @@ function Login() {
 
   return (
     <div className="bg-white flex flex-wrap items-start h-screen p-0 m-0">
-      <div className="w-[100%] bg-primary px-4 py-2 mb-15">
-        <h1>Daily Bills</h1>
-      </div> 
+      <Header /> 
       <div className="w-[100%]">        
         <form onSubmit={handleSubmit}>
           <div className="flex justify-center">

@@ -7,7 +7,7 @@ const companySchema = new mongoose.Schema({
     address: { type: String, trim: true },
     gstNumber: {  type: String, trim: true },
     logoUrl: { type: String, trim: true},
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "Admin", },
 }, {timestamps: true});
 
 const Company = mongoose.model("Company", companySchema);

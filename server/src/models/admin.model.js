@@ -6,9 +6,8 @@ const adminSchema  = new mongoose.Schema({
     password: String,
     phone: String,
     support: String,
-    timings: String
-    
+    timings: String    
 }, {timestamps : true});
 
-const Admin = mongoose.model("Admin", adminSchema);
+const Admin = mongoose.model("Admin", adminSchema, "admin");
 export default Admin;
