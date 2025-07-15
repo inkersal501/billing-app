@@ -1,28 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from '@components/admin/Header';
 import { toast } from 'react-toastify';
 import { createCustomer } from '@js/admin/customer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '@store/adminSlice';
+import useAuth from '@hooks/admin/useAuth';
 
 function AddCustomer() {
-
+    useAuth();
     const [form, setForm] = useState({name:"",email:"",phone:"",address:"",gstNumber:"",logoUrl:""});
     const token = useSelector((state) => state.admin.user.token);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    useEffect(()=> {
-        if(!token) {
-            dispatch(logout());
-            navigate("/admin");
-        }
-        //eslint-disable-next-line
-    }, [token]);
-
-    const handleUpdate = (e) =>{ 
-        setForm({...form, [e.target] : e.target.value});
+ 
+    const handleUpdate = (e) =>{  
+        setForm({...form, [e.target.id] : e.target.value});
     }
 
     const handleForm = async (e) => {
@@ -53,29 +44,29 @@ function AddCustomer() {
                         </div>
                         <div className='flex flex-col'>
                             <label htmlFor="name">Name</label>
-                            <input type="text" id="name" className='input' onChange={handleUpdate} value={form.name}/>
+                            <input type="text" id="name" className='input' onChange={handleUpdate} value={form.name} />
                         </div>
                         <div className='flex flex-col'>
                             <label htmlFor="email">Email</label>
-                            <input type="text" id="email" className='input' onChange={handleUpdate} value={form.email}/>
+                            <input type="text" id="email" className='input' onChange={handleUpdate} value={form.email} />
                         </div>
                         <div className='flex flex-col'>
                             <label htmlFor="phone">Phone</label>
-                            <input type="text" id="phone" className='input' onChange={handleUpdate} value={form.phone}/>
+                            <input type="text" id="phone" className='input' onChange={handleUpdate} value={form.phone} />
                         </div>
                         <div className='flex flex-col'>
                             <label htmlFor="address">Address</label>
-                            <textarea id="address" className='input' cols="30" rows="4" onChange={handleUpdate}>{form.address}</textarea>
+                            <textarea id="address" className='input' cols="30" rows="4" onChange={handleUpdate} value={form.address} />
                         </div>
                         <div className='flex flex-col'>
                             <label htmlFor="gstNumber">Gst Number</label>
-                            <input type="text" id="gstNumber" className='input' onChange={handleUpdate} value={form.gstNumber}/>
+                            <input type="text" id="gstNumber" className='input' onChange={handleUpdate} value={form.gstNumber} />
                         </div>
                         <div className='flex flex-col'>
                             <label htmlFor="logoUrl">Logo URL</label>
-                            <input type="text" id="logoUrl" className='input' onChange={handleUpdate} value={form.logoUrl}/>
+                            <input type="text" id="logoUrl" className='input' onChange={handleUpdate} value={form.logoUrl} />
                         </div>
-                        <div className='my-2 text-center'> 
+                        <div className='my-2 text-center'>  
                             <button className='btn' type='submit'>Submit</button>
                         </div>
                     </div>

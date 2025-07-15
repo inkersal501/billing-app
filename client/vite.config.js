@@ -12,6 +12,7 @@ export default defineConfig({
       "@pages": path.resolve("src/pages"),
       "@js": path.resolve("src/js"),
       "@store" : path.resolve("src/store"),
+      "@hooks" : path.resolve("src/hooks"),
     },
   },
 });

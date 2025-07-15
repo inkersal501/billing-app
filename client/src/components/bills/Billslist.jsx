@@ -47,8 +47,9 @@ const Billslist = () => {
       return accumulator + bill.totalAmount;
     }, 0);
     setTotalAmount(totalAmount);
-  }, [bills])
-// console.log(bills)
+  }, [bills]);
+
+ 
   return (
     <div className="px-4">
       <div className="flex justify-between items-center py-4">

@@ -4,11 +4,11 @@ import axios from "axios";
  
 const createCustomer = async (data, token) => {
     try {
-        const result = await axios.post(`${apiEndpoint}/admin/customer`, {...data}, {
+        const result = await axios.post(`${apiEndpoint}/admin/company`, {...data}, {
             headers: {Authorization: `Bearer ${token}`}
         });
-        if(result.status === 200){
-            toast.success("Created Customer Successully.");        
+        if(result.status === 201){
+            toast.success("Customer Created Successully.");        
             return true;
         }
     } catch (error) {
@@ -16,5 +16,15 @@ const createCustomer = async (data, token) => {
         return false;
     }
 }
+const fetchCustomers = async (token) => {
+    try {
+        const result = await axios.get(`${apiEndpoint}/admin/company`, {
+            headers: {Authorization: `Bearer ${token}`}
+        }); 
+        return result.data.company; 
+    } catch (error) { 
+        return error;
+    }
+};
 
-export {createCustomer};
+export {createCustomer, fetchCustomers};

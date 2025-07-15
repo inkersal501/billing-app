@@ -1,4 +1,4 @@
-import { adminModel, loginModel } from "../models/index.js";
+import { adminModel, companyModel, loginModel } from "../models/index.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import config from "../config/config.js";
@@ -31,4 +31,24 @@ const login = async ({email, password}) => {
     return { name, email, phone, role: "admin", token };
 };
 
-export default {register, login};
+const getCompany = async ()=> {
+    try {
+        const companies = await companyModel.find();    
+        return companies;
+    } catch (error) {
+        throw new Error("Email already exists "+ error.message);
+    }
+    
+};
+
+const createCompany = async (data) => {
+    const check = await companyModel.findOne({email: data.email});
+    if(check){
+        throw new Error("Email already exists");
+    }else{
+        const company = await companyModel.create({...data});
+        return company;
+    }
+};
+
+export default {register, login, getCompany, createCompany};

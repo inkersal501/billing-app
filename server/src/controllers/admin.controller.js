@@ -16,4 +16,24 @@ const login = async (req, res) => {
     res.status(401).json({ error: err.message });
   }
 };
-export default {register, login};
+
+const getCompany = async (req, res) => {
+  try {
+    const company = await adminService.getCompany();
+    res.status(200).json({company});
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+const createCompany  = async (req, res) => {
+    try {
+    const company = await adminService.createCompany(req.body);
+    res.status(201).json(company);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+
+export default {register, login, getCompany, createCompany};

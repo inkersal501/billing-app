@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"; 
 import { defaultState } from "@js/config";
 
-const storage = JSON.parse(localStorage.getItem("admin")) || null;
+const storage = JSON.parse(localStorage.getItem("admin"));
 const initialState = defaultState.admin; 
 
 const adminSlice = createSlice({
