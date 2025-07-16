@@ -1,6 +1,7 @@
-import { billService } from "../services/index.js";
+import { userServices } from "../../services/index.js";
+const { billService } = userServices;
 
-const create = async (req, res) => {
+export const create = async (req, res) => {
   try {
     const bill = await billService.createBill(req.body);
     res.status(201).json(bill);
@@ -9,7 +10,7 @@ const create = async (req, res) => {
   }
 };
 
-const getAll = async (req, res) => {
+export const getAll = async (req, res) => {
   const { startDate, endDate } = req.query;
   try {
     const bills = await billService.getBills(startDate, endDate);
@@ -18,5 +19,3 @@ const getAll = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-export default { create, getAll };

@@ -1,9 +1,9 @@
-import { loginModel, userModel } from "../models/index.js";
+import { loginModel, userModel } from "../../models/index.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import config from "../config/config.js";
+import config from "../../config/config.js";
 
-const registerUser = async (data) => {
+export const registerUser = async (data) => {
   const checkUser = await userModel.findOne({ email: data.email });
   if (checkUser)
     throw new Error("Email already exists");
@@ -13,7 +13,7 @@ const registerUser = async (data) => {
   return user;
 };
 
-const loginUser = async ({ email, password }) => {
+export const loginUser = async ({ email, password }) => {
   const user = await userModel.findOne({ email });
   if (!user)
     throw new Error("User doesn't exist");
@@ -29,5 +29,4 @@ const loginUser = async ({ email, password }) => {
   
   return { name, email, phone, role, token };
 };
-
-export default { registerUser, loginUser };
+ 

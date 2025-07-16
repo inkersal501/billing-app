@@ -1,6 +1,6 @@
-import { billModel, customerModel, productModel } from "../models/index.js";
+import { billModel, customerModel, productModel } from "../../models/index.js";
 
-const createBill = async (data) => {
+export const createBill = async (data) => {
   let customer;
   if(data.customer) {
     customer = await customerModel.findOne({phone: data.customer.phone});
@@ -28,7 +28,7 @@ const createBill = async (data) => {
   return bill;
 };
 
-const getBills = async (startDate, endDate) => {
+export const getBills = async (startDate, endDate) => {
   let filter = {};
   if (startDate && endDate) {
     const start = new Date(startDate);
@@ -48,5 +48,4 @@ const getBills = async (startDate, endDate) => {
   const bills = await billModel.find(filter).populate("customer").populate("products.product").sort({date:-1});
   return bills;
 };
-
-export default { createBill, getBills };
+ 

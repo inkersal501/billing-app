@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use(route);
+app.use("/api", route);
 
 app.listen(config.PORT, () => {
   console.log(`Billing app listening on port ${config.PORT}`);

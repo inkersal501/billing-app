@@ -1,9 +1,9 @@
-import { adminModel, companyModel, loginModel } from "../models/index.js";
+import { adminModel, billModel, companyModel, loginModel } from "../../models/index.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import config from "../config/config.js";
+import config from "../../config/config.js";
 
-const register = async (req) => {
+export const register = async (req) => {
     const check = await adminModel.findOne({email: req.email});
     if(check){
         throw new Error("Admin Email already exist");
@@ -14,7 +14,7 @@ const register = async (req) => {
     } 
 };
 
-const login = async ({email, password}) => {
+export const login = async ({email, password}) => {
     const admin = await adminModel.findOne({ email });
     if (!admin)
         throw new Error("Admin doesn't exist");
@@ -31,24 +31,12 @@ const login = async ({email, password}) => {
     return { name, email, phone, role: "admin", token };
 };
 
-const getCompany = async ()=> {
+export const getDashboardData = async ()=>{
     try {
-        const companies = await companyModel.find();    
-        return companies;
+        const companies = await companyModel.count();    
+        const bills = await billModel.count();
     } catch (error) {
-        throw new Error("Email already exists "+ error.message);
-    }
-    
-};
-
-const createCompany = async (data) => {
-    const check = await companyModel.findOne({email: data.email});
-    if(check){
-        throw new Error("Email already exists");
-    }else{
-        const company = await companyModel.create({...data});
-        return company;
+        
     }
 };
-
-export default {register, login, getCompany, createCompany};
+ 

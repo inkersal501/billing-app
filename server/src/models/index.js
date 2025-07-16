@@ -5,6 +5,8 @@ import Bill from "./bill.model.js";
 import Login from "./login.model.js";
 import Company from "./company.model.js";
 import Admin from "./admin.model.js";
+import BillingPlan from "./billingplan.model.js";
+
 
 export const userModel = User;
 export const productModel = Product;
@@ -13,3 +15,4 @@ export const billModel = Bill;
 export const loginModel = Login;
 export const companyModel = Company;
 export const adminModel = Admin;
+export const billingPlanModel = BillingPlan;
