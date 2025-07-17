@@ -1,9 +1,11 @@
-import Header from '@components/admin/Header';
-import useAuth from '@hooks/admin/useAuth';
+
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
-import { fetchCustomers } from '@js/admin/customer';
 import { useSelector } from 'react-redux';
+
+import Header from '@admincomponents/Header';
+import useAuth from '@adminhooks/useAuth';
+import { fetchCustomers } from '@adminjs/customer';
 
 function Dashboard() {
   useAuth();

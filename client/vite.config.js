@@ -7,12 +7,21 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
+
       "@assets" : path.resolve("src/assets"),
-      "@components": path.resolve("src/components"),
-      "@pages": path.resolve("src/pages"),
-      "@js": path.resolve("src/js"),
       "@store" : path.resolve("src/store"),
-      "@hooks" : path.resolve("src/hooks"),
+      "@js" : path.resolve("src/js"),
+      
+      "@admincomponents": path.resolve("src/components/admin"),
+      "@adminpages": path.resolve("src/pages/admin"),
+      "@adminjs": path.resolve("src/js/admin"), 
+      "@adminhooks" : path.resolve("src/hooks/admin"),
+
+      "@billscomponents": path.resolve("src/components/bills"),
+      "@billspages": path.resolve("src/pages/bills"),
+      "@billsjs": path.resolve("src/js/bills"),      
+      "@billshooks" : path.resolve("src/hooks/bills"),
+        
     },
   },
 });

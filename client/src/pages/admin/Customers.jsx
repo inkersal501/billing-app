@@ -1,8 +1,9 @@
-import Header from '@components/admin/Header';
-import useAuth from '@hooks/admin/useAuth';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import CustomersList from '@components/admin/CustomersList';
+
+import Header from '@admincomponents/Header';
+import CustomersList from '@admincomponents/CustomersList';
+import useAuth from '@adminhooks/useAuth';
 
 function Customers() {
   useAuth();

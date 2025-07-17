@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { fetchBills } from "@js/bills/bill";
+import { fetchBills } from "@billsjs/bill";
 import { useSelector } from "react-redux";
+
 import {
   LineChart,
   Line,

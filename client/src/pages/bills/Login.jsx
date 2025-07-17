@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import Logo from "@components/bills/Logo";
-import { toast } from "react-toastify";
-import { handleLogin } from "@js/bills/auth";
-import { useDispatch } from "react-redux";
-import { login } from "@store/authSlice";
 import { useNavigate } from 'react-router-dom'; 
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
+import Logo from "@billscomponents/Logo";
+import { handleLogin } from "@billsjs/auth";
+import { login } from "@store/authSlice";
 
 function Login() {
 

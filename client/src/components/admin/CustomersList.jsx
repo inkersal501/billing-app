@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { fetchCustomers } from "@js/admin/customer";
+import { fetchCustomers } from "@adminjs/customer";
 
 function CustomersList() {
     const [customers, setCustomers] = useState();

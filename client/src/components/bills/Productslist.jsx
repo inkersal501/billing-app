@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { updateProducts } from "@store/productSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, fetchProducts, updateStatus } from "@js/bills/product";
+import { addProduct, fetchProducts, updateStatus } from "@billsjs/product";
 import Productcard from "./Productcard";
 import Addproduct from "./Addproduct";
 

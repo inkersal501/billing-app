@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import Header from '@components/admin/Header';
 import { toast } from 'react-toastify';
-import { createCustomer } from '@js/admin/customer';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '@hooks/admin/useAuth';
+
+import Header from '@admincomponents/Header';
+import useAuth from '@adminhooks/useAuth';
+import { createCustomer } from '@adminjs/customer';
 
 function AddCustomer() {
     useAuth();
