@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const handleLogin = async (email, password) => {
 
     try {
-        const result = await axios.post(`${apiEndpoint}/admin/login`, {email, password});
+        const result = await axios.post(`${apiEndpoint}/admin/auth/login`, {email, password});
         if(result.status === 200){
             toast.success("Loggedin Successully.");        
             return result.data;
