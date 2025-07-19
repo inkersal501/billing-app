@@ -4,7 +4,7 @@ const { authService } = adminServices;
 export const register = async (req, res) => {
   try {
     await authService.register(req.body);
-    res.status(201).json({ message: "Admin registered." });
+    res.status(201).json({ message: "Admin User registered." });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

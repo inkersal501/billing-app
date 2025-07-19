@@ -46,6 +46,10 @@ h5 {
 h6 {
   font-size: 1rem;
 }
+.link {
+  color: blue;
+  cursor: pointer;
+}
 
 .input {
   border: 1px solid #ccc;

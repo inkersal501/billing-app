@@ -3,10 +3,17 @@
     "baseUrl": "src",
     "paths": {
       "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"],
       "@js/*": ["js/*"],
-      "@store/*": ["store/*"]
+
+      "@admincomponents/*": ["components/admin/*"],
+      "@adminpages/*": ["pages/admin/*"],
+      "@adminjs/*": ["js/admin/*"],
+      
+      "@billscomponents/*": ["components/bills/*"],
+      "@billspages/*": ["pages/bills/*"],
+      "@billsjs/*": ["js/bills/*"],
+      
     }
   }
 }

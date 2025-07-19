@@ -2,13 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 import { useSelector } from 'react-redux';
-
-import Header from '@admincomponents/Header';
-import useAuth from '@adminhooks/useAuth';
+  
 import { fetchCustomers } from '@adminjs/customer';
 
-function Dashboard() {
-  useAuth();
+function Dashboard() { 
+
   const navigate = useNavigate();
   const [customers, setCustomers] = useState(0); 
   const admin = useSelector((state) => state.admin.user);
@@ -28,8 +26,7 @@ function Dashboard() {
   }, []);
   
   return (
-    <div>
-      <Header />
+    <div> 
       <div className='px-5'>
         <div className="text-end">
           <button className='btn' onClick={()=>navigate("/admin/add-customer")}>New Customer</button>
