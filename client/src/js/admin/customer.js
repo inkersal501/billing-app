@@ -16,6 +16,21 @@ const createCustomer = async (data, token) => {
         return false;
     }
 }
+const updateCustomer = async (data, token) => {
+    try {
+        const result = await axios.patch(`${apiEndpoint}/admin/company`, {...data}, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        if(result.status === 201){
+            toast.success("Customer details Updated Successully.");        
+            return true;
+        }
+    } catch (error) {
+        toast.error(error.response.data.error);
+        return false;
+    }
+};
+
 const fetchCustomers = async (token) => {
     try {
         const result = await axios.get(`${apiEndpoint}/admin/company`, {
@@ -27,4 +42,4 @@ const fetchCustomers = async (token) => {
     }
 };
 
-export {createCustomer, fetchCustomers};
+export {createCustomer, updateCustomer, fetchCustomers};

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; 
 import Modal from "react-modal";
 
 import { createCustomer } from '@adminjs/customer';
@@ -9,8 +8,7 @@ import { createCustomer } from '@adminjs/customer';
 function AddCustomerForm({isOpen, onRequestClose}) {
     const [form, setForm] = useState({name:"", email:"", phone:"", address:"", gstNumber:"", logoUrl:""});
     const token = useSelector((state) => state.admin.user.token);
-    const navigate = useNavigate();
-    
+     
     const handleUpdate = (e) =>{  
         setForm({...form, [e.target.id] : e.target.value});
     }
@@ -29,7 +27,7 @@ function AddCustomerForm({isOpen, onRequestClose}) {
         
         const create = await createCustomer(form, token);
         if(create) {
-            navigate("/admin/customers");
+            onRequestClose();
         }
     }
     return (

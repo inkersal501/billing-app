@@ -12,7 +12,7 @@ const AdminRoutes = () => (
     <Route element={<AdminLayout />}>      
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="customers" element={<Customers />} /> 
-      <Route path="view-admin-users" element={<AdminUsers />} />      
+      <Route path="users" element={<AdminUsers />} />      
     </Route>
   </Routes>
 );

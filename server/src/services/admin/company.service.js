@@ -20,3 +20,19 @@ export const createCompany = async (data) => {
     }
 };
  
+export const updateCompany = async (data) => {
+    const companyId = data._id;
+    try {
+        const company = await companyModel.findById(companyId);
+        company.name = data.name;
+        company.email = data.email;
+        company.phone = data.phone;
+        company.address = data.address;
+        company.gstNumber = data.gstNumber;
+        company.logoUrl = data.logoUrl;
+        await companyModel.save();
+        return company;
+    } catch (error) {
+        throw new Error(error.message);
+    }    
+};

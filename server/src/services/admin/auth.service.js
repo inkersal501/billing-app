@@ -31,12 +31,38 @@ export const login = async ({email, password}) => {
     return { name, email, phone, role: "admin", token };
 };
 
+ 
+export const update = async (data) => {
+    const adminId = data._id;
+    try {
+        const admin = await adminModel.findById(adminId, "_id name email phone role");
+        admin.name = data.name;
+        admin.email = data.email;
+        admin.phone = data.phone;
+        admin.role = data.role; 
+        await adminModel.save();
+        return admin;
+    } catch (error) {
+        throw new Error(error.message);
+    }    
+};
+
+
+export const getAdminUsersList = async ()=> {
+    try {
+        const adminusers = await adminModel.find({}, "_id name email phone role");
+        return adminusers;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
 export const getDashboardData = async ()=>{
     try {
         const companies = await companyModel.count();    
         const bills = await billModel.count();
     } catch (error) {
-        
+        throw new Error(error.message);
     }
 };
  

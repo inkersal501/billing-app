@@ -1,45 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; 
 import Modal from "react-modal";
 
-import { createCustomer } from '@adminjs/customer';
+import { createAdminUser } from '@adminjs/auth';
 
-function EditCustomerForm({isOpen, onRequestClose, customerData=null}) {
-
-    const {name, email, phone, address, gstNumber, logoUrl} = customerData; 
-    const [form, setForm] = useState({name, email, phone, address, gstNumber, logoUrl});
-
+function AddAdminUser({isOpen, onRequestClose}) {
+    const [form, setForm] = useState({name:"", email:"", phone:"", role: "", password: ""});
     const token = useSelector((state) => state.admin.user.token);
-    const navigate = useNavigate();
     
     const handleUpdate = (e) =>{  
-      setForm({...form, [e.target.id] : e.target.value});
+        setForm({...form, [e.target.id] : e.target.value});
     }
 
     const handleForm = async (e) => {
-      e.preventDefault();
-      if(!form.name) {
-          toast.error("Please provide Name"); return false;
-      } if(!form.email) {
-          toast.error("Please provide Email"); return false;
-      } if(!form.phone) {
-          toast.error("Please provide Phone"); return false;
-      } if(!form.address) {
-          toast.error("Please provide Address"); return false;
-      }
-      
-      const create = await createCustomer(form, token);
-      if(create) {
-          navigate("/admin/customers");
-      }
+        e.preventDefault();
+        if(!form.name) {
+            toast.error("Please provide Name"); return false;
+        } else if(!form.email) {
+            toast.error("Please provide Email"); return false;
+        } else if(!form.phone) {
+            toast.error("Please provide Phone"); return false;
+        } else if(!form.role) {
+            toast.error("Please provide Role"); return false;
+        } else if(!form.password) {
+            toast.error("Please provide Password"); return false;
+        }
+        
+        const create = await createAdminUser(form, token);
+        if(create) {
+            onRequestClose();
+        }
     }
-
-    useEffect(()=>{
-      setForm(customerData);
-      //eslint-disable-next-line
-    }, [])
     return (
         <Modal
               isOpen={isOpen}
@@ -52,7 +44,7 @@ function EditCustomerForm({isOpen, onRequestClose, customerData=null}) {
             <form onSubmit={handleForm}>
                 <div className="py-4 px-4 flex flex-col gap-2">
                     <div className="text-center">
-                        <h3>Edit Customer Details</h3>
+                        <h3>New Admin</h3>
                     </div>
                     <div className='flex flex-col'>
                         <label htmlFor="name">Name</label>
@@ -67,19 +59,20 @@ function EditCustomerForm({isOpen, onRequestClose, customerData=null}) {
                         <input type="text" id="phone" className='input' onChange={handleUpdate} value={form.phone} />
                     </div>
                     <div className='flex flex-col'>
-                        <label htmlFor="address">Address</label>
-                        <textarea id="address" className='input' cols="30" rows="4" onChange={handleUpdate} value={form.address} />
+                      <label htmlFor="role">Role</label>
+                      <select id="role" className='input' onChange={handleUpdate} value={form.role}>
+                        {/* <option value="Admin">Admin</option> */}
+                        <option value="">Select Role</option>
+                        <option value="CSM">CSM</option>
+                        <option value="Staff">Staff</option>
+                      </select>
                     </div>
                     <div className='flex flex-col'>
-                        <label htmlFor="gstNumber">Gst Number</label>
-                        <input type="text" id="gstNumber" className='input' onChange={handleUpdate} value={form.gstNumber} />
-                    </div>
-                    <div className='flex flex-col'>
-                        <label htmlFor="logoUrl">Logo URL</label>
-                        <input type="text" id="logoUrl" className='input' onChange={handleUpdate} value={form.logoUrl} />
+                      <label htmlFor="password">Password</label>
+                      <input type="password" id="password" className='input' onChange={handleUpdate} value={form.password} />
                     </div>
                     <div className='my-2 text-center'>  
-                        <button className='btn' type='submit'>Submit</button>
+                      <button className='btn' type='submit'>Submit</button>
                     </div>
                 </div>
             </form>
@@ -87,5 +80,5 @@ function EditCustomerForm({isOpen, onRequestClose, customerData=null}) {
     </Modal>
     )
 }
-
-export default EditCustomerForm
+ 
+export default AddAdminUser

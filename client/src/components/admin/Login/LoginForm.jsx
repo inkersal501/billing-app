@@ -37,16 +37,23 @@ function LoginForm() {
             }
         }
     }   
-
-    const formattedDate = currentTime.toLocaleDateString("en-IN");
-    const formattedTime = currentTime.toLocaleTimeString("en-IN");
+    const formattedDateTime = `${currentTime.getDate().toString().padStart(2, "0")}-` +
+        `${currentTime.toLocaleString("en-IN", { month: "short" })}-` +
+        `${currentTime.getFullYear()} ` +
+        `${currentTime.toLocaleTimeString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+        }).toLowerCase()}`; 
     
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <form onSubmit={handleSubmit} className="w-full flex justify-center">
                 <div className="w-full max-w-md shadow-lg rounded-2xl border border-primary py-8 px-6 bg-white">
-                    <h3 className="text-center text-xl font-semibold">Admin Login</h3> 
-                    <p className="text-gray-600 text-center mb-6 text-sm">Sign in to manage billing, products, and users.</p>
+                    <h2 className="text-center text-2xl font-semibold mb-4">BillingPro</h2>
+                    <p className="text-xl font-semibold">Admin Login</p> 
+                    <p className="text-gray-600 mb-6 text-sm">Sign in to manage billing, products, and users.</p>
                     <div className="w-full flex flex-col items-center">
                         <div className="w-full flex flex-col gap-1 mb-4">
                             <label htmlFor="email">Email</label>
@@ -81,7 +88,7 @@ function LoginForm() {
                         </div>
                     </div> 
                     <div className="text-center mt-4 text-sm text-gray-500">
-                        <h5>{formattedDate} {formattedTime}</h5>
+                        <h5>{formattedDateTime}</h5>
                     </div>             
                 </div>
             </form>

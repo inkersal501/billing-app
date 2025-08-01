@@ -18,6 +18,24 @@ export const login = async (req, res) => {
   }
 };
 
+export const update = async (req, res) => {
+  try {
+    const data = await authService.update(req.body);
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+export const getAdminUsersList = async (req, res) => {
+  try {
+    const data = await authService.getAdminUsersList();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 export const getDashboardData = async (req, res) => {
   try {
     const data = await authService.getDashboardData();
