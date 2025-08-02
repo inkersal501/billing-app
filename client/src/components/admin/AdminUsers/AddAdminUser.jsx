@@ -6,6 +6,7 @@ import Modal from "react-modal";
 import { createAdminUser } from '@adminjs/auth';
 
 function AddAdminUser({isOpen, onRequestClose}) {
+
     const [form, setForm] = useState({name:"", email:"", phone:"", role: "", password: ""});
     const token = useSelector((state) => state.admin.user.token);
     
@@ -29,13 +30,14 @@ function AddAdminUser({isOpen, onRequestClose}) {
         
         const create = await createAdminUser(form, token);
         if(create) {
-            onRequestClose();
+            onRequestClose("add", true);
         }
     }
+    
     return (
         <Modal
               isOpen={isOpen}
-              onRequestClose={onRequestClose}
+              onRequestClose={()=>onRequestClose("add")}
               contentLabel="Add Bill"
               className="bg-white py-4 px-4 rounded-xl w-full max-w-md mx-auto mt-20 outline-none"
               overlayClassName="fixed inset-0 modal-overlay bg-opacity-50 flex justify-center items-start z-50"
@@ -68,11 +70,12 @@ function AddAdminUser({isOpen, onRequestClose}) {
                       </select>
                     </div>
                     <div className='flex flex-col'>
-                      <label htmlFor="password">Password</label>
-                      <input type="password" id="password" className='input' onChange={handleUpdate} value={form.password} />
+                        <label htmlFor="password">Password</label>
+                        <input type="password" id="password" className='input' onChange={handleUpdate} value={form.password} />
                     </div>
                     <div className='my-2 text-center'>  
-                      <button className='btn' type='submit'>Submit</button>
+                        <button className='btn me-4' type='button' onClick={()=>onRequestClose("add")}>Close</button>
+                        <button className='btn' type='submit'>Submit</button>
                     </div>
                 </div>
             </form>

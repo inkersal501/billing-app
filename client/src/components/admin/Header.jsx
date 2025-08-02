@@ -1,14 +1,18 @@
+import { logout } from "@store/adminSlice";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const admin = useSelector((state)=> state.admin);
 
-  const handleLogout = () => {
-    localStorage.removeItem("auth");
-    navigate("/login");
+  const handleLogout = () => {  
+    toast.success("Logged out successfully");    
+    dispatch(logout());  
+    navigate("/admin/");  
   };
 
   return (
@@ -50,8 +54,9 @@ function Header() {
           >
             Profile
           </NavLink>
+          {admin.isLoggedin && admin.role === "admin" && 
           <NavLink
-            to="/admin/view-admin-users"
+            to="/admin/users"
             className={({ isActive }) =>
               isActive
                 ? "border-b-2 border-white pb-1"
@@ -60,6 +65,7 @@ function Header() {
           >
             Admin Users
           </NavLink>
+          }
           <button
             onClick={handleLogout}
             className="text-white px-3 pb-1"
@@ -70,7 +76,7 @@ function Header() {
         :
         <nav className="flex gap-6">
             <NavLink
-            to="/admin/"
+            to="/admin"            
             className={"hover:border-b-2 hover:border-white pb-1"}
           >
             Login

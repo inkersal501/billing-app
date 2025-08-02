@@ -47,7 +47,7 @@ const updateAdminUser = async (data, token) => {
         const result = await axios.patch(`${apiEndpoint}/admin/auth/user`, {...data}, {
             headers: {Authorization: `Bearer ${token}`}
         });
-        if(result.status === 201){
+        if(result.status === 200){
             toast.success("Admin details Updated Successully.");        
             return true;
         }

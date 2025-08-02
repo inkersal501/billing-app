@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { fetchCustomers } from "@adminjs/customer";
- 
-function CustomersList({showEditModal, setEditData}) {
+import { Link } from "react-router-dom";
+  
+function CustomersList({showEditModal, setEditData, refreshList=false}) {
+
     const [customers, setCustomers] = useState([]);
     const admin = useSelector((state) => state.admin.user);
 
@@ -20,6 +22,12 @@ function CustomersList({showEditModal, setEditData}) {
         // eslint-disable-next-line
     }, []);
 
+    useEffect(()=> {
+        if(refreshList)
+            loadCustomers();
+        // eslint-disable-next-line
+    }, [refreshList]);
+    
     return (
         <div className="w-full px-4 py-6">
             {customers.length === 0 ? (
@@ -51,6 +59,7 @@ function CustomersList({showEditModal, setEditData}) {
                                         >
                                             Edit
                                         </span>
+                                        <Link to={`/admin/customers/${customer._id}`} className="link ms-4">View</Link>
                                     </td>
                                 </tr>
                             ))}

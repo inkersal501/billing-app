@@ -13,10 +13,11 @@ const adminSlice = createSlice({
       state.isLoggedin = true; 
       localStorage.setItem("admin", JSON.stringify({...state}));
     },
-    logout : (state) => {
-        //eslint-disable-next-line
-        state = initialState;        
-        localStorage.removeItem("admin");
+    logout : (state) => {  
+        state.user = initialState.user;    
+        state.isLoggedin = initialState.isLoggedin;  
+        state.logout = true;   
+        localStorage.removeItem("admin"); 
     }, 
   },
 });

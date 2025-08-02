@@ -25,10 +25,10 @@ export const login = async ({email, password}) => {
     const token = jwt.sign({ id: admin._id }, config.jwtSecret, {
         expiresIn: config.jwtExpire,
     });
-    const {name, phone} = admin;
+    const {name, phone, role} = admin;
     await loginModel.create({email, token});
   
-    return { name, email, phone, role: "admin", token };
+    return { name, email, phone, role, token };
 };
 
  
@@ -36,11 +36,12 @@ export const update = async (data) => {
     const adminId = data._id;
     try {
         const admin = await adminModel.findById(adminId, "_id name email phone role");
+        if(!admin) throw new Error("User not found");
         admin.name = data.name;
         admin.email = data.email;
         admin.phone = data.phone;
         admin.role = data.role; 
-        await adminModel.save();
+        await admin.save();
         return admin;
     } catch (error) {
         throw new Error(error.message);

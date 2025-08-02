@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React from 'react'
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { fetchAdminUsers } from "@adminjs/auth";
+import { fetchCompanyUsers } from "@adminjs/customer";
  
-function AdminUsersList({showEditModal, setEditData, refreshList=false}) {
+function UsersList({customerId, showEditModal, setEditData, refreshList=false}) {
 
-    const [adminUsers, setAdminUsers] = useState([]);
+    const [users, setUsers] = useState([]);
     const admin = useSelector((state) => state.admin.user);
 
-    const loadAdminUsers = async () => {
+    const loadUsers = async () => {
         try {
-            const res = await fetchAdminUsers(admin.token);
-            setAdminUsers(res || []);
+            const res = await fetchCompanyUsers(customerId, admin.token);
+            setUsers(res || []);
         } catch (err) {
             console.error(err);
         }
     };
 
     useEffect(() => {
-        loadAdminUsers();
+        loadUsers();
         // eslint-disable-next-line
     }, []);
 
     useEffect(()=> {
         if(refreshList)
-            loadAdminUsers();
+            loadUsers();
         // eslint-disable-next-line
     }, [refreshList]);
 
     return (
         <div className="w-full px-4 py-6">
-            {adminUsers.length === 0 ? (
-                <p className="text-center text-gray-500">No Admin Users..</p>
+            {users.length === 0 ? (
+                <p className="text-center text-gray-500">No Users..</p>
             ) : (
                 <div className="overflow-x-auto bg-white">
                     <table className="w-full min-w-[700px] text-sm text-left">
@@ -45,7 +46,7 @@ function AdminUsersList({showEditModal, setEditData, refreshList=false}) {
                             </tr>
                         </thead>
                         <tbody>
-                            {adminUsers.map((user, index) => (
+                            {users.map((user, index) => (
                                 <tr key={user._id} className="hover:bg-gray-50">
                                     <td className="px-4 py-2 border">{index + 1}</td>
                                     <td className="px-4 py-2 border">{user.role}</td>
@@ -69,4 +70,4 @@ function AdminUsersList({showEditModal, setEditData, refreshList=false}) {
     );
 }
 
-export default AdminUsersList; 
+export default UsersList; 

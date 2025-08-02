@@ -7,8 +7,12 @@ import { updateAdminUser } from '@adminjs/auth';
 
 function EditAdminUser({isOpen, onRequestClose, editData=null}) {
 
-    const {_id, name, email, phone, role}= editData; 
-    const [form, setForm] = useState({_id, name, email, phone, role});
+    const [form, setForm] = useState({});
+    useEffect(()=> {
+        if(editData){ 
+            setForm(editData);
+        }
+    }, [editData]);
 
     const token = useSelector((state) => state.admin.user.token);
      
@@ -17,33 +21,28 @@ function EditAdminUser({isOpen, onRequestClose, editData=null}) {
     }
 
     const handleForm = async (e) => {
-      e.preventDefault();
-      if(!form.name) {
-          toast.error("Please provide Name"); return false;
-      } if(!form.email) {
-          toast.error("Please provide Email"); return false;
-      } if(!form.phone) {
-          toast.error("Please provide Phone"); return false;
-      } if(!form.address) {
-          toast.error("Please provide Address"); return false;
-      }
-      
-      const create = await updateAdminUser(form, token);
-      if(create) {
-          onRequestClose();
-      }
-    }
-
-    useEffect(()=>{
-      setForm(editData);
-      //eslint-disable-next-line
-    }, []);
+        e.preventDefault();
+        if(!form.name) {
+            toast.error("Please provide Name"); return false;
+        } if(!form.email) {
+            toast.error("Please provide Email"); return false;
+        } if(!form.phone) {
+            toast.error("Please provide Phone"); return false;
+        } if(!form.role) {
+            toast.error("Please provide Role"); return false;
+        }
+        
+        const create = await updateAdminUser(form, token);
+        if(create) {
+            onRequestClose("edit", true, true);
+        }
+    } 
 
     return (
         <Modal
               isOpen={isOpen}
-              onRequestClose={onRequestClose}
-              contentLabel="Add Bill"
+              onRequestClose={()=>onRequestClose("edit", true, true)}
+              contentLabel="Edit Admin Details"
               className="bg-white py-4 px-4 rounded-xl w-full max-w-md mx-auto mt-20 outline-none"
               overlayClassName="fixed inset-0 modal-overlay bg-opacity-50 flex justify-center items-start z-50"
             >
@@ -75,6 +74,7 @@ function EditAdminUser({isOpen, onRequestClose, editData=null}) {
                       </select>
                     </div>
                     <div className='my-2 text-center'>  
+                        <button className='btn me-4' type='button' onClick={()=>onRequestClose("edit", false, true)}>Close</button>
                         <button className='btn' type='submit'>Submit</button>
                     </div>
                 </div>

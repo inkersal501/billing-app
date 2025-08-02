@@ -4,8 +4,8 @@ const userSchema = new mongoose.Schema(
   {
     company: {type: mongoose.Schema.Types.ObjectId, ref:"Company" },
     name: String,
-    email: { type: String, unique: true },
-    phone: { type: String, unique: true },
+    email: { type: String, unique: [true, "Email already exist"] },
+    phone: { type: String, unique: [true, "Phone already exist"] },
     password: String,
     role: {type: String, enum: ["User", "Admin"], default: "User" }
   },

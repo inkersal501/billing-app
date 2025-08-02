@@ -16,12 +16,26 @@ const createCustomer = async (data, token) => {
         return false;
     }
 }
+const fetchCustomerDetails = async (id, token) => {
+    try {
+        const result = await axios.get(`${apiEndpoint}/admin/company/${id}`, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        if(result.status === 200){
+            return result.data;    
+        }
+    } catch (error) {
+        toast.error(error.response.data.error);
+        return false;
+    }
+};
+
 const updateCustomer = async (data, token) => {
     try {
         const result = await axios.patch(`${apiEndpoint}/admin/company`, {...data}, {
             headers: {Authorization: `Bearer ${token}`}
         });
-        if(result.status === 201){
+        if(result.status === 200){
             toast.success("Customer details Updated Successully.");        
             return true;
         }
@@ -42,4 +56,45 @@ const fetchCustomers = async (token) => {
     }
 };
 
-export {createCustomer, updateCustomer, fetchCustomers};
+const fetchCompanyUsers = async (company, token) => {
+    try {
+        const result = await axios.get(`${apiEndpoint}/admin/company/users/${company}`, {
+            headers: {Authorization: `Bearer ${token}`}
+        }); 
+        return result.data; 
+    } catch (error) { 
+        return error;
+    }
+};
+
+const createCompanyUser = async (data, company, token) => {
+    try {
+        const result = await axios.post(`${apiEndpoint}/admin/company/users/${company}`, {...data}, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        if(result.status === 201){
+            toast.success("User Created Successully.");        
+            return true;
+        }
+    } catch (error) {
+        toast.error(error.response.data.error);
+        return false;
+    }
+}
+
+const updateCompanyUser = async (data, company, token) => {
+    try {
+        const result = await axios.patch(`${apiEndpoint}/admin/company/users/${company}`, {...data}, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        if(result.status === 200){
+            toast.success("User details Updated Successully.");        
+            return true;
+        }
+    } catch (error) {
+        toast.error(error.response.data.error);
+        return false;
+    }
+};
+
+export {createCustomer, fetchCustomerDetails, updateCustomer, fetchCustomers, fetchCompanyUsers, createCompanyUser, updateCompanyUser};
