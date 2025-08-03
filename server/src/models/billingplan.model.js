@@ -7,8 +7,7 @@ const billingPlanSchema = new mongoose.Schema({
   features: [String],
   limits: {
     billsPerMonth: Number,
-    maxUsers: Number,
-    customers: String,
+    maxUsers: Number, 
   },
   isActive: { type: Boolean, default: true }
 }, { timestamps: true });

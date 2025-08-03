@@ -1,14 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { Link } from 'react-router-dom'; 
 import { useSelector } from 'react-redux';
   
 import { fetchCustomers } from '@adminjs/customer';
 
 function Dashboard() { 
 
-  const navigate = useNavigate();
-  const [customers, setCustomers] = useState(0); 
+   const [customers, setCustomers] = useState(0); 
   const admin = useSelector((state) => state.admin.user);
 
   const loadCustomers = async () => {
@@ -26,12 +25,7 @@ function Dashboard() {
   }, []);
   
   return (
-    <div> 
-      <div className='px-5'>
-        <div className="text-end">
-          <button className='btn' onClick={()=>navigate("/admin/add-customer")}>New Customer</button>
-        </div>
-      </div>
+    <div>  
       <div className='p-4'>
         <div className="flex gap-10 text-center">
           <div className="border p-5 rounded-lg shadow">

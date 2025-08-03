@@ -66,9 +66,9 @@ function EditAdminUser({isOpen, onRequestClose, editData=null}) {
                     </div>
                     <div className='flex flex-col'>
                       <label htmlFor="role">Role</label>
-                      <select id="role" className='input' onChange={handleUpdate} value={form.role}>
-                        {/* <option value="Admin">Admin</option> */}
+                      <select id="role" className='input' onChange={handleUpdate} value={form.role}>                        
                         <option value="">Select Role</option>
+                        <option value="Admin">Admin</option>
                         <option value="CSM">CSM</option>
                         <option value="Staff">Staff</option>
                       </select>
