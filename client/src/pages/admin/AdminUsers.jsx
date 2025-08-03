@@ -24,8 +24,13 @@ function AdminUsers() {
   return (
     <div> 
       <div className='px-5'>
-        <div className="text-end">
-          <button className='btn' onClick={()=>setShowAddModal(true)}>New Admin</button>
+        <div className="flex justify-between">
+          <div>
+            <h2 className='text-xl'>Admin Users</h2>
+          </div>
+          <div className="text-end">
+            <button className='btn' onClick={()=>setShowAddModal(true)}>New Admin</button>
+          </div>
         </div>
       </div>
       <AdminUsersList showEditModal={setShowEditModal} setEditData={setEditData} refreshList={refreshList}/>

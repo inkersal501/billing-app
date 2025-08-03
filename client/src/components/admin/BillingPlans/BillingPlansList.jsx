@@ -1,9 +1,76 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { fetchBillingPlans } from "@adminjs/billingplan";
+ 
+function BillingPlansList({showEditModal, setEditData, refreshList=false}) {
 
-function BillingPlansList() {
-  return (
-    <div>BillingPlansList</div>
-  )
+    const [plans, setPlans] = useState([]);
+    const admin = useSelector((state) => state.admin.user);
+
+    const loadBillingPlans = async () => {
+        try {
+            const res = await fetchBillingPlans(admin.token);
+            setPlans(res || []);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    useEffect(() => {
+        loadBillingPlans();
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(()=> {
+        if(refreshList)
+            loadBillingPlans();
+        // eslint-disable-next-line
+    }, [refreshList]);
+
+    return (
+        <div className="w-full px-4 py-6">
+            {plans.length === 0 ? (
+                <p className="text-center text-gray-500">No Plans found..</p>
+            ) : (
+                <div className="overflow-x-auto bg-white">
+                    <table className="w-full min-w-[700px] text-sm text-left">
+                        <thead>
+                            <tr className="bg-primary text-white">
+                                <th className="px-4 py-3 border">Sl.No</th>
+                                <th className="px-4 py-3 border">Plan Name</th>
+                                <th className="px-4 py-3 border">Monthly/Yearly Price</th>
+                                <th className="px-4 py-3 border">Bills/month</th>
+                                <th className="px-4 py-3 border">Max Users</th> 
+                                <th className="px-4 py-3 border">Features</th> 
+                                <th className="px-4 py-3 border">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {plans.map((plan, index) => (
+                                <tr key={plan._id} className="hover:bg-gray-50">
+                                    <td className="px-4 py-2 border">{index + 1}</td> 
+                                    <td className="px-4 py-2 border">{plan.name}</td>
+                                    <td className="px-4 py-2 border">{plan.priceMonthly + "/" + plan.priceYearly}</td>
+                                    <td className="px-4 py-2 border">{plan.limits.billsPerMonth}</td>
+                                    <td className="px-4 py-2 border">{plan.limits.maxUsers}</td> 
+                                    <td className="px-4 py-2 border">{plan.features.map((feature, index)=>(
+                                      <li key={index}>{feature}</li>
+                                    ))}</td>  
+                                    <td className="px-4 py-2 border">
+                                        <span className="link"
+                                        onClick={()=>{setEditData(plan);showEditModal(true);}}
+                                        >
+                                          Edit
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
+        </div>
+    );
 }
-
+ 
 export default BillingPlansList

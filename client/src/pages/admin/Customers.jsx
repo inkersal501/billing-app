@@ -25,8 +25,13 @@ function Customers() {
   return (
     <div> 
       <div className='px-5'>
-        <div className="text-end">
-          <button className='btn' onClick={()=>setShowAddModal(true)}>New Customer</button>
+        <div className="flex justify-between">
+          <div>
+            <h2 className='text-xl'>Customers</h2>
+          </div>
+          <div className="text-end">
+            <button className='btn' onClick={()=>setShowAddModal(true)}>New Customer</button>
+          </div>
         </div>
       </div>
       <CustomersList showEditModal={setShowEditModal} setEditData={setEditData} refreshList={refreshList} />

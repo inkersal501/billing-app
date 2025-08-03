@@ -24,8 +24,13 @@ function BillingPlans() {
   return (
     <div> 
       <div className='px-5'>
-        <div className="text-end">
-          <button className='btn' onClick={()=>setShowAddModal(true)}>New Plan</button>
+        <div className="flex justify-between">
+          <div>
+            <h2 className='text-xl'>Billing Plans</h2>
+          </div>
+          <div className="text-end">
+            <button className='btn' onClick={()=>setShowAddModal(true)}>New Plan</button>
+          </div>
         </div>
       </div>
       <BillingPlansList showEditModal={setShowEditModal} setEditData={setEditData} refreshList={refreshList}/>

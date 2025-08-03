@@ -30,7 +30,7 @@ function Dashboard() {
         <div className="flex gap-10 text-center">
           <div className="border p-5 rounded-lg shadow">
             <h5>Total Customers</h5>
-           <Link to="/admin/customers"><h2>{customers}</h2></Link>
+            <Link to="/admin/customers"><h2>{customers}</h2></Link>
           </div>
           <div className="border p-5 rounded-lg shadow">
             <h5>Bills Raised</h5>

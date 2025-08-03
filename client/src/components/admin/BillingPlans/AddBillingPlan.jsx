@@ -52,8 +52,7 @@ function AddBillingPlan({isOpen, onRequestClose}) {
         };
 
         const res = await createBillingPlan(payload, token);
-        if (res) {
-            toast.success("Billing plan created");
+        if (res) { 
             onRequestClose("add", true);
         }
     };
@@ -63,15 +62,15 @@ function AddBillingPlan({isOpen, onRequestClose}) {
             isOpen={isOpen}
             onRequestClose={() => onRequestClose("add")}
             contentLabel="Add Billing Plan"
-            className="bg-white py-4 px-4 rounded-xl w-full max-w-md mx-auto mt-20 outline-nonee max-h-[90vh] overflow-y-scroll"
+            className="bg-white py-4 px-4 rounded-xl w-full max-w-md mx-auto mt-20 outline-none max-h-[90vh] overflow-y-auto"
             overlayClassName="fixed inset-0 modal-overlay bg-opacity-50 flex justify-center items-start z-50"
-        > 
+        >
             <form onSubmit={handleForm}>
                 <div className="py-4 px-4 flex flex-col gap-3">
                     <h3 className="text-center font-semibold text-lg">Add Billing Plan</h3>
 
                     <div className="flex flex-col">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Billing Name</label>
                         <input id="name" className="input" value={form.name} onChange={handleUpdate} />
                     </div>
 
@@ -107,13 +106,17 @@ function AddBillingPlan({isOpen, onRequestClose}) {
                             )}
                         </div>
                         ))}
+                        {form.features.length < 10 && 
+                        (
+                            <div className="text-end">
                         <button
                         type="button"
                         onClick={addFeatureField}
                         className="text-blue-600 mt-1 text-sm hover:underline"
                         >
                         + Add Feature
-                        </button>
+                        </button></div>)
+                        }
                     </div>
 
                     <div className="flex flex-col">

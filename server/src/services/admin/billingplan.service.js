@@ -2,7 +2,7 @@ import { billingPlanModel } from "../../models/index.js";
 
 export const createPlan = async (data) => {
   const plan = billingPlanModel.create(data);
-  return await plan.save();
+  return plan;
 };
 
 export const getPlans = async () => {
