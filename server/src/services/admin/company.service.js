@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { companyModel, userModel } from "../../models/index.js"; 
+import { billingPlanModel, companyModel, userModel } from "../../models/index.js"; 
 
 export const getCompany = async ()=> {
     try {
@@ -11,20 +11,43 @@ export const getCompany = async ()=> {
     
 };
 
-export const createCompany = async (data) => {
+export const createCompany = async (data, userId) => {
     const check = await companyModel.findOne({email: data.email});
     if(check){
-        throw new Error("Email already exists");
+        throw new Error("Email already exists.");
     }else{
-        const company = await companyModel.create({...data});
-        return company;
+        
+        const { name, email, phone, address, gstNumber, logoUrl, plan } = data;
+        const planData = await billingPlanModel.findById(plan).lean();
+        console.log(plan)
+        if(!planData)
+            throw new Error("Plan not found.");
+        const createData =  {
+            name : name,
+            email : email,
+            phone : phone,
+            address : address,
+            gstNumber : gstNumber,
+            logoUrl : logoUrl,
+            createdBy : userId,
+            plan: {
+                name: planData.name,
+                priceMonthly: planData.priceMonthly,
+                priceYearly: planData.priceYearly,
+                limits: {
+                    billsPerMonth: planData.limits.billsPerMonth,
+                    maxUsers: planData.limits.maxUsers
+                }
+            } 
+        };
+        return await companyModel.create(createData);
     }
 };
 
 export const getCompanyDetails = async (id) => {
     const company = await companyModel.findById(id);
     if(!company)
-        throw new Error("Details Not found")
+        throw new Error("Details Not found.");
     return company;
 };
  
@@ -50,7 +73,7 @@ export const updateCompany = async (data) => {
 export const getCompanyUsers = async (company) => {
     const users = await userModel.find({company});
     if(!users)
-        throw new Error("No Users Not found")
+        throw new Error("No Users Not found");
     return users;
 };
 

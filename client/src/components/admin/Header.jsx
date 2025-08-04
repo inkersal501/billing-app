@@ -58,17 +58,7 @@ function Header() {
           >
             Customers
           </NavLink>         
-          
-          <NavLink
-            to="/admin/profile"
-            className={({ isActive }) =>
-              isActive
-                ? "border-b-2 border-white pb-1"
-                : "hover:border-b-2 hover:border-white pb-1"
-            }
-          >
-            Profile
-          </NavLink>
+           
           {admin.isLoggedin && admin.user.role === "Admin" && 
           <><NavLink
             to="/admin/users"

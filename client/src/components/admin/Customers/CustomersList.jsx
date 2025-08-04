@@ -42,6 +42,7 @@ function CustomersList({showEditModal, setEditData, refreshList=false}) {
                                 <th className="px-4 py-3 border">Email</th>
                                 <th className="px-4 py-3 border">Phone</th>
                                 <th className="px-4 py-3 border">GST</th>
+                                <th className="px-4 py-3 border">Plan</th>
                                 <th className="px-4 py-3 border">Action</th>
                             </tr>
                         </thead>
@@ -53,6 +54,12 @@ function CustomersList({showEditModal, setEditData, refreshList=false}) {
                                     <td className="px-4 py-2 border">{customer.email}</td>
                                     <td className="px-4 py-2 border">{customer.phone}</td>
                                     <td className="px-4 py-2 border">{customer.gstNumber}</td>
+                                    <td className="px-4 py-2 border">
+                                        {customer.plan.name}<br />
+                                        Rs. {customer.plan.priceMonthly + "/" + customer.plan.priceYearly} <br />
+                                        {customer.plan.limits.billsPerMonth} bills & {customer.plan.limits.maxUsers} users <br />
+                                        <a className="link ms-4">Upgrade</a>
+                                    </td>
                                     <td className="px-4 py-2 border">
                                         <span className="link"
                                         onClick={()=>{setEditData(customer);showEditModal(true);}}

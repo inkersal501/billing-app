@@ -31,6 +31,20 @@ const fetchBillingPlans = async (token) => {
     }
 };
 
+const fetchActiveBillingPlans = async (token) => {
+    try {
+        const result = await axios.get(`${apiEndpoint}/admin/plans/active`, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        if(result.status === 200){
+            return result.data;    
+        }
+    } catch (error) {
+        toast.error(error.response.data.error);
+        return false;
+    }
+};
+
 const updateBillingPlan = async (data, planId, token) => {
     try {
         const result = await axios.put(`${apiEndpoint}/admin/plans/${planId}`, {...data}, {
@@ -46,4 +60,18 @@ const updateBillingPlan = async (data, planId, token) => {
     }
 };
 
-export {createBillingPlan, fetchBillingPlans, updateBillingPlan};
+const updatePlanStatus = async (plan, status, token) => {
+    try {
+        const result = await axios.patch(`${apiEndpoint}/admin/plans/${plan}/updatestatus`, {status}, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        if(result.status === 200){
+            toast.success("Plan Status Updated Successully.");        
+            return true;
+        }
+    } catch (error) {
+        toast.error(error.response.data.error);
+        return false;
+    }
+};
+export {createBillingPlan, fetchBillingPlans, updateBillingPlan, fetchActiveBillingPlans, updatePlanStatus};

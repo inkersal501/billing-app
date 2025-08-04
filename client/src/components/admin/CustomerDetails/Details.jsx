@@ -20,7 +20,7 @@ function Details({customerId}) {
         <div className='px-5'> 
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
-                {customer.logoUrl ? <img src={customer.logoUrl} alt={customer.name} className='w-25' /> : ""}
+                {customer.logoUrl ? <img src={customer.logoUrl} alt={customer.name} className='w-25' loading='lazy' /> : ""}
                 <h2 className='text-xl'>{customer.name}</h2>
                 </div>
                 <div>

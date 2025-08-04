@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { fetchBillingPlans } from "@adminjs/billingplan";
- 
+import { fetchBillingPlans, updatePlanStatus } from "@adminjs/billingplan";
+  
 function BillingPlansList({showEditModal, setEditData, refreshList=false}) {
 
     const [plans, setPlans] = useState([]);
@@ -27,6 +27,20 @@ function BillingPlansList({showEditModal, setEditData, refreshList=false}) {
         // eslint-disable-next-line
     }, [refreshList]);
 
+    const handleStatusChange = async (planId, currStatus, status) => {
+        if(status !== currStatus){
+            await updatePlanStatus(planId, status, admin.token);
+            const updated = plans.map((plan)=>{
+                if(plan._id === planId){
+                    plan.isActive = status;
+                }
+                return plan;
+            });
+            setPlans(updated);
+        }
+
+    };
+
     return (
         <div className="w-full px-4 py-6">
             {plans.length === 0 ? (
@@ -42,6 +56,7 @@ function BillingPlansList({showEditModal, setEditData, refreshList=false}) {
                                 <th className="px-4 py-3 border">Bills/month</th>
                                 <th className="px-4 py-3 border">Max Users</th> 
                                 <th className="px-4 py-3 border">Features</th> 
+                                <th className="px-4 py-3 border">Status</th>  
                                 <th className="px-4 py-3 border">Action</th>
                             </tr>
                         </thead>
@@ -56,6 +71,12 @@ function BillingPlansList({showEditModal, setEditData, refreshList=false}) {
                                     <td className="px-4 py-2 border">{plan.features.map((feature, index)=>(
                                       <li key={index}>{feature}</li>
                                     ))}</td>  
+                                    <td className="px-4 py-2 border">
+                                        <select id={"status"+plan._id} value={plan.isActive} onChange={(e)=>handleStatusChange(plan._id, plan.isActive, e.target.value)}>
+                                            <option value={true} >Active</option>
+                                            <option value={false} >Inactive</option>
+                                        </select>
+                                    </td>
                                     <td className="px-4 py-2 border">
                                         <span className="link"
                                         onClick={()=>{setEditData(plan);showEditModal(true);}}

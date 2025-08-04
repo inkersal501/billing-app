@@ -20,6 +20,15 @@ export const getPlans = async (req, res) => {
   }
 };
 
+export const getActivePlans = async(req, res) => {
+  try {
+    const plans = await billingPlanService.getPlans(true);
+    res.status(200).json(plans);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const getPlanById = async (req, res) => {
   try {
     const plan = await billingPlanService.getPlanById(req.params.id);
@@ -39,6 +48,15 @@ export const updatePlan = async (req, res) => {
       return res.status(404).json({ message: "Plan not found" });
     }
     res.status(200).json(plan);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateStatus = async (req, res) => {
+  try {
+    await billingPlanService.updateStatus(req.params.id, req.body.status);     
+    res.status(200).json({message: "Plan Status Updated."});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
