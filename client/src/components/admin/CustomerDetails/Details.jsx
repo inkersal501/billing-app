@@ -17,7 +17,7 @@ function Details({customerId}) {
         //eslint-disable-next-line
     }, [customerId]); 
     return (
-        <div className='px-5'> 
+        <div className='px-5 border-b border-b-primary pb-4 mb-4'> 
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                 {customer.logoUrl ? <img src={customer.logoUrl} alt={customer.name} className='w-25' loading='lazy' /> : ""}
@@ -44,6 +44,27 @@ function Details({customerId}) {
                     <div>
                         <p>GST</p>
                         <p><strong>{customer.gstNumber}</strong></p>
+                    </div> 
+                </div>
+            </div>
+            <div className="mt-4">
+                <h4>Current Plan Details</h4>
+                <div className="grid grid-cols-4"> 
+                    <div>
+                        <p>Plan Name</p>
+                        <p><strong>{customer.plan.name}</strong></p>
+                    </div>
+                    <div>
+                        <p>Price</p>
+                        <p><strong>Rs. {customer.plan.priceMonthly + "/" + customer.plan.priceYearly}</strong></p>
+                    </div>
+                    <div>
+                        <p>Max Bills/month</p>
+                        <p><strong>{customer.plan.limits.billsPerMonth}</strong></p>
+                    </div>
+                    <div>
+                        <p>Max Users</p>
+                        <p><strong>{customer.plan.limits.maxUsers}</strong></p>
                     </div> 
                 </div>
             </div>
