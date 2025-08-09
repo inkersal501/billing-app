@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCustomers } from "@adminjs/customer";
 import { Link } from "react-router-dom";
+import { updateRefreshCustomers } from "@store/adminSlice";
   
 function CustomersList({showEditModal, setEditData, refreshList=false}) {
 
     const [customers, setCustomers] = useState([]);
     const admin = useSelector((state) => state.admin.user);
+    const dispatch = useDispatch();
 
     const loadCustomers = async () => {
         try {
@@ -16,15 +18,13 @@ function CustomersList({showEditModal, setEditData, refreshList=false}) {
             console.error(err);
         }
     };
-
-    useEffect(() => {
-        loadCustomers();
-        // eslint-disable-next-line
-    }, []);
-
+ 
     useEffect(()=> {
-        if(refreshList)
-            loadCustomers();
+        if(refreshList){
+            loadCustomers().then(()=> {
+                dispatch(updateRefreshCustomers(false));
+            });
+        }            
         // eslint-disable-next-line
     }, [refreshList]);
     

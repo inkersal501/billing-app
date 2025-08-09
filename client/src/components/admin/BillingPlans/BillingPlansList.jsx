@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchBillingPlans, updatePlanStatus } from "@adminjs/billingplan";
-  
-function BillingPlansList({showEditModal, setEditData, refreshList=false}) {
+import { updateRefreshBillingPlans } from '@store/adminSlice';
+
+function BillingPlansList({showEditModal, setEditData}) {
 
     const [plans, setPlans] = useState([]);
     const admin = useSelector((state) => state.admin.user);
+    const refreshList = useSelector((state) => state.admin.refreshAdminUsers);
+    const dispatch = useDispatch();
 
     const loadBillingPlans = async () => {
         try {
@@ -15,15 +18,13 @@ function BillingPlansList({showEditModal, setEditData, refreshList=false}) {
             console.error(err);
         }
     };
-
-    useEffect(() => {
-        loadBillingPlans();
-        // eslint-disable-next-line
-    }, []);
-
+ 
     useEffect(()=> {
-        if(refreshList)
-            loadBillingPlans();
+        if(refreshList){
+            loadBillingPlans().then(()=> {
+                dispatch(updateRefreshBillingPlans(false));
+            });
+        }
         // eslint-disable-next-line
     }, [refreshList]);
 

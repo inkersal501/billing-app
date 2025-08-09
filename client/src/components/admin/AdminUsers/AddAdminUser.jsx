@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-modal";
 
 import { createAdminUser } from '@adminjs/auth';
+import { updateRefreshAdminUsers } from '@store/adminSlice';
 
 function AddAdminUser({isOpen, onRequestClose}) {
 
     const [form, setForm] = useState({name:"", email:"", phone:"", role: "", password: ""});
     const token = useSelector((state) => state.admin.user.token);
-    
+    const dispatch = useDispatch();
+
     const handleUpdate = (e) =>{  
         setForm({...form, [e.target.id] : e.target.value});
     }
@@ -30,7 +32,8 @@ function AddAdminUser({isOpen, onRequestClose}) {
         
         const create = await createAdminUser(form, token);
         if(create) {
-            onRequestClose("add", true);
+            onRequestClose("add");
+            dispatch(updateRefreshAdminUsers(true));
         }
     }
     

@@ -1,13 +1,16 @@
 import React from 'react'
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCompanyUsers } from "@adminjs/customer";
+import { updateRefreshCustomerDetails } from '@store/adminSlice';
  
-function UsersList({customerId, showEditModal, setEditData, refreshList=false}) {
+function UsersList({customerId, showEditModal, setEditData}) {
 
     const [users, setUsers] = useState([]);
-    const admin = useSelector((state) => state.admin.user);
-
+    const admin = useSelector((state) => state.admin.user);    
+    const refreshList = useSelector((state) => state.admin.refreshCustomerDetails);
+    const dispatch = useDispatch();
+     
     const loadUsers = async () => {
         try {
             const res = await fetchCompanyUsers(customerId, admin.token);
@@ -17,17 +20,15 @@ function UsersList({customerId, showEditModal, setEditData, refreshList=false}) 
         }
     };
 
-    useEffect(() => {
-        loadUsers();
-        // eslint-disable-next-line
-    }, []);
-
     useEffect(()=> {
-        if(refreshList)
-            loadUsers();
+        if(refreshList){ 
+            loadUsers().then(() => {
+                dispatch(updateRefreshCustomerDetails(false));
+            }); 
+        }
         // eslint-disable-next-line
-    }, [refreshList]);
-
+    }, [refreshList]); 
+    
     return (
         <div className="w-full px-4 py-6">
             {users.length === 0 ? (

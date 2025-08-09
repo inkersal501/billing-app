@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-modal";
 import { MdRemoveCircle } from "react-icons/md";
 
 import { createBillingPlan } from '@adminjs/billingplan';
+import { updateRefreshBillingPlans } from '@store/adminSlice';
 
 function AddBillingPlan({isOpen, onRequestClose}) {
 
     const [form, setForm] = useState({ name: "", priceMonthly: "", priceYearly: "", features: [""], billsPerMonth: "", maxUsers: "" });
     const token = useSelector((state) => state.admin.user.token);
-    
+    const dispatch = useDispatch();
+
     const handleFeatureChange = (index, value) => {
         const updatedFeatures = [...form.features];
         updatedFeatures[index] = value;
@@ -53,7 +55,8 @@ function AddBillingPlan({isOpen, onRequestClose}) {
 
         const res = await createBillingPlan(payload, token);
         if (res) { 
-            onRequestClose("add", true);
+            onRequestClose("add");
+            dispatch(updateRefreshBillingPlans(true));
         }
     };
     

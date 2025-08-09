@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-modal";
 
 import { updateCompanyUser } from '@adminjs/customer';
+import { updateRefreshCustomerDetails } from '@store/adminSlice';
 
 function EditUser({customerId, isOpen, onRequestClose, editData=null}) {
 
@@ -15,7 +16,8 @@ function EditUser({customerId, isOpen, onRequestClose, editData=null}) {
     }, [editData]);
 
     const token = useSelector((state) => state.admin.user.token);
-     
+    const dispatch = useDispatch();
+
     const handleUpdate = (e) =>{  
       setForm({...form, [e.target.id] : e.target.value});
     }
@@ -34,14 +36,15 @@ function EditUser({customerId, isOpen, onRequestClose, editData=null}) {
       
       const create = await updateCompanyUser(form, customerId, token);
       if(create) {
-        onRequestClose("edit", true, true);
+        onRequestClose("edit");
+        dispatch(updateRefreshCustomerDetails(true));
       }
     } 
 
     return (
         <Modal
               isOpen={isOpen}
-              onRequestClose={()=>onRequestClose("edit", true, true)}
+              onRequestClose={()=>onRequestClose("edit")}
               contentLabel="Edit User Details"
               className="bg-white py-4 px-4 rounded-xl w-full max-w-md mx-auto mt-20 outline-none"
               overlayClassName="fixed inset-0 modal-overlay bg-opacity-50 flex justify-center items-start z-50"
@@ -73,7 +76,7 @@ function EditUser({customerId, isOpen, onRequestClose, editData=null}) {
                       </select>
                     </div>
                     <div className='my-2 text-center'>  
-                        <button className='btn me-4' type='button' onClick={()=>onRequestClose("edit", false, true)}>Close</button>
+                        <button className='btn me-4' type='button' onClick={()=>onRequestClose("edit")}>Close</button>
                         <button className='btn' type='submit'>Submit</button>
                     </div>
                 </div>

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-modal";
 
 import { createCustomer } from '@adminjs/customer';
 import { fetchActiveBillingPlans } from '@js/admin/billingplan';
+import { updateRefreshCustomers } from '@store/adminSlice';
  
 function AddCustomerForm({isOpen, onRequestClose}) {
     
     const [form, setForm] = useState({name:"", email:"", phone:"", address:"", gstNumber:"", logoUrl:"", plan: ""});
     const [plans, setPlans] = useState([]);
     const token = useSelector((state) => state.admin.user.token);
-    
+    const dispatch = useDispatch();
+
     const handleUpdate = (e) =>{  
         setForm({...form, [e.target.id] : e.target.value});
     }
@@ -32,7 +34,8 @@ function AddCustomerForm({isOpen, onRequestClose}) {
         
         const create = await createCustomer(form, token);
         if(create) {
-            onRequestClose("add", true);
+            onRequestClose("add");
+            dispatch(updateRefreshCustomers(true));
         }
     }
     useEffect(()=> {

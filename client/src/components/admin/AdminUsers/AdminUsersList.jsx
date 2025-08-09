@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchAdminUsers } from "@adminjs/auth";
+import { updateRefreshAdminUsers } from "@store/adminSlice";
  
-function AdminUsersList({showEditModal, setEditData, refreshList=false}) {
+function AdminUsersList({showEditModal, setEditData}) {
 
     const [adminUsers, setAdminUsers] = useState([]);
     const admin = useSelector((state) => state.admin.user);
+    const refreshList = useSelector((state) => state.admin.refreshAdminUsers);
+    const dispatch = useDispatch();
 
     const loadAdminUsers = async () => {
         try {
@@ -15,15 +18,13 @@ function AdminUsersList({showEditModal, setEditData, refreshList=false}) {
             console.error(err);
         }
     };
-
-    useEffect(() => {
-        loadAdminUsers();
-        // eslint-disable-next-line
-    }, []);
-
+ 
     useEffect(()=> {
-        if(refreshList)
-            loadAdminUsers();
+        if(refreshList){
+            loadAdminUsers().then(()=> {
+                dispatch(updateRefreshAdminUsers(false));
+            });
+        }           
         // eslint-disable-next-line
     }, [refreshList]);
 

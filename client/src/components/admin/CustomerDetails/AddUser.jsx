@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-modal";
 
 import { createCompanyUser } from '@adminjs/customer';
+import { updateRefreshCustomerDetails } from '@store/adminSlice';
 
 function AddUser({customerId, isOpen, onRequestClose}) {
 
     const [form, setForm] = useState({name:"", email:"", phone:"", role: "", password: ""});
     const token = useSelector((state) => state.admin.user.token);
-    
+    const dispatch = useDispatch();
+
     const handleUpdate = (e) =>{  
         setForm({...form, [e.target.id] : e.target.value});
     }
@@ -30,7 +32,8 @@ function AddUser({customerId, isOpen, onRequestClose}) {
         
         const create = await createCompanyUser(form, customerId, token);
         if(create) {
-            onRequestClose("add", true);
+            onRequestClose("add");
+            dispatch(updateRefreshCustomerDetails(true));
         }
     }
     

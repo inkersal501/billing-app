@@ -3,6 +3,10 @@ const defaultState  =  {
     admin: {
         isLoggedin: null,
         user: null,
+        refreshAdminUsers: true,
+        refreshBillingPlans: true, 
+        refreshCustomers: true,
+        refreshCustomerDetails: true,
     },
     auth: {
         isLoggedin: null,

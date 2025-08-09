@@ -10,17 +10,15 @@ function CustomerDetails() {
 
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
-    const [editData, setEditData] = useState({}); 
-    const [refreshList, setRefreshList] = useState(false);
+    const [editData, setEditData] = useState({});  
 
-    const onRequestClose = (action, refresh = false, clear = false) => {
+    const onRequestClose = (action) => {
         if(action === "add"){
             setShowAddModal(false);
         } else{
             setShowEditModal(false);
-            if(clear) setEditData({});
-        }
-        if(refresh) setRefreshList(true);  
+            setEditData({});
+        } 
     }
 
     return (
@@ -31,7 +29,7 @@ function CustomerDetails() {
                     <button className='btn' onClick={()=>setShowAddModal(true)}>Add Users</button>
                 </div>
             </div>
-            <UsersList customerId={customerId} showEditModal={setShowEditModal} setEditData={setEditData} refreshList={refreshList}/>
+            <UsersList customerId={customerId} showEditModal={setShowEditModal} setEditData={setEditData} />
             <AddUser customerId={customerId} isOpen={showAddModal} onRequestClose={onRequestClose} />
             <EditUser customerId={customerId} isOpen={showEditModal} onRequestClose={onRequestClose} editData={editData} />
         </div>

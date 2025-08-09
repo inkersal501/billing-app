@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-modal";
  
 import { updateBillingPlan } from '@adminjs/billingplan';
 import { MdRemoveCircle } from 'react-icons/md';
+import { updateRefreshBillingPlans } from '@store/adminSlice';
 
 function EditBillingPlan({isOpen, onRequestClose, editData=null}) {
 
@@ -16,7 +17,8 @@ function EditBillingPlan({isOpen, onRequestClose, editData=null}) {
   }, [editData]);
 
   const token = useSelector((state) => state.admin.user.token);
-    
+  const dispatch = useDispatch();
+
   const handleFeatureChange = (index, value) => {
     const updatedFeatures = [...form.features];
     updatedFeatures[index] = value;
@@ -63,7 +65,8 @@ function EditBillingPlan({isOpen, onRequestClose, editData=null}) {
 
     const update = await updateBillingPlan(payload, form._id, token);
     if (update) { 
-      onRequestClose("edit", true, true);
+      onRequestClose("edit");
+      dispatch(updateRefreshBillingPlans(true));
     }
   };
 
@@ -139,7 +142,7 @@ function EditBillingPlan({isOpen, onRequestClose, editData=null}) {
             <input id="maxUsers" type="number" className="input" value={form.limits?.maxUsers} onChange={handleUpdate} />
           </div>
           <div className='my-2 text-center'>  
-            <button className='btn me-4' type='button' onClick={()=>onRequestClose("edit", false, true)}>Close</button>
+            <button className='btn me-4' type='button' onClick={()=>onRequestClose("edit")}>Close</button>
             <button className='btn' type='submit'>Submit</button>
           </div>
         </div>
@@ -148,4 +151,4 @@ function EditBillingPlan({isOpen, onRequestClose, editData=null}) {
   )
 }
 
-export default EditBillingPlan
+export default EditBillingPlan;

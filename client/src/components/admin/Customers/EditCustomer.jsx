@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from "react-modal";
 
 import { updateCustomer } from '@adminjs/customer';
+import { updateRefreshCustomers } from '@store/adminSlice';
 
 function EditCustomerForm({isOpen, onRequestClose, editData=null}) {
 
@@ -15,7 +16,8 @@ function EditCustomerForm({isOpen, onRequestClose, editData=null}) {
     }, [editData]);
 
     const token = useSelector((state) => state.admin.user.token);
-     
+    const dispatch = useDispatch();
+
     const handleUpdate = (e) =>{  
       setForm({...form, [e.target.id] : e.target.value});
     }
@@ -34,14 +36,15 @@ function EditCustomerForm({isOpen, onRequestClose, editData=null}) {
         
         const update = await updateCustomer(form, token);
         if(update) {
-            onRequestClose("edit", true, true);
+            onRequestClose("edit");
+            dispatch(updateRefreshCustomers(true));
         }
     }
 
     return (
         <Modal
               isOpen={isOpen}
-              onRequestClose={()=>onRequestClose("edit", true, true)}
+              onRequestClose={()=>onRequestClose("edit")}
               contentLabel="Edit Customer Details"
               className="bg-white py-4 px-4 rounded-xl w-full max-w-xl mx-auto mt-20 outline-none"
               overlayClassName="fixed inset-0 modal-overlay bg-opacity-50 flex justify-center items-start z-50"
@@ -85,7 +88,7 @@ function EditCustomerForm({isOpen, onRequestClose, editData=null}) {
                         </div>
                     </div>
                     <div className='my-2 text-center'>  
-                        <button className='btn me-4' type='button' onClick={()=>onRequestClose("edit", false, true)}>Close</button>
+                        <button className='btn me-4' type='button' onClick={()=>onRequestClose("edit")}>Close</button>
                         <button className='btn' type='submit'>Submit</button>
                     </div>
                 </div>

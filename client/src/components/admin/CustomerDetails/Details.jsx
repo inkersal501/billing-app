@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function Details({customerId}) {
-    const [customer, setCustomer] = useState({});
 
+    const [customer, setCustomer] = useState({}); 
     const token = useSelector((state) => state.admin.user.token);
 
     useEffect(()=> {
@@ -13,9 +13,10 @@ function Details({customerId}) {
             const data = await fetchCustomerDetails(customerId, token);
             setCustomer(data);
         };
-        fetchCustomer(customerId);
+        fetchCustomer(customerId); 
         //eslint-disable-next-line
     }, [customerId]); 
+    
     return (
         <div className='px-5 border-b border-b-primary pb-4 mb-4'> 
             <div className="flex justify-between items-center">
@@ -52,19 +53,19 @@ function Details({customerId}) {
                 <div className="grid grid-cols-4"> 
                     <div>
                         <p>Plan Name</p>
-                        <p><strong>{customer.plan.name}</strong></p>
+                        <p><strong>{customer.plan?.name}</strong></p>
                     </div>
                     <div>
                         <p>Price</p>
-                        <p><strong>Rs. {customer.plan.priceMonthly + "/" + customer.plan.priceYearly}</strong></p>
+                        <p><strong>Rs. {customer.plan?.priceMonthly + "/" + customer.plan?.priceYearly}</strong></p>
                     </div>
                     <div>
                         <p>Max Bills/month</p>
-                        <p><strong>{customer.plan.limits.billsPerMonth}</strong></p>
+                        <p><strong>{customer.plan?.limits?.billsPerMonth}</strong></p>
                     </div>
                     <div>
                         <p>Max Users</p>
-                        <p><strong>{customer.plan.limits.maxUsers}</strong></p>
+                        <p><strong>{customer.plan?.limits?.maxUsers}</strong></p>
                     </div> 
                 </div>
             </div>
