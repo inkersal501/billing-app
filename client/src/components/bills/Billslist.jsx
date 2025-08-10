@@ -95,6 +95,7 @@ const Billslist = () => {
 
       {/* Table */}
       <div className="overflow-x-auto">
+    
         <table className="min-w-full border border-gray-300">
           <thead className="bg-primary">
             <tr>

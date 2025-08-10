@@ -18,7 +18,7 @@ function Header() {
     dispatch(logout());  
     navigate("/admin/");  
   };
-   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
 
   useEffect(() => {
     const handleClickOutside = (e) => {

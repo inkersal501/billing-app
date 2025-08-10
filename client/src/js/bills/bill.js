@@ -3,7 +3,7 @@ import axios from "axios";
 
 const addBill = async (billdata, token) => {
     try {
-        const result = await axios.post(`${apiEndpoint}/bills`, billdata, {
+        const result = await axios.post(`${apiEndpoint}/users/bills`, billdata, {
             headers: {Authorization: `Bearer ${token}`}
         });
         if(result.status === 201){ 
@@ -15,7 +15,7 @@ const addBill = async (billdata, token) => {
 }
 const fetchBills = async (url, token) => {
     try {
-        const result = await axios.get(`${apiEndpoint}/bills${url}`, {
+        const result = await axios.get(`${apiEndpoint}/users/bills${url}`, {
             headers: { Authorization: `Bearer ${token}`}
         });
         if(result.status === 200){        

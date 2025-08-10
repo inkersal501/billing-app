@@ -14,12 +14,16 @@ export const registerUser = async (data) => {
 };
 
 export const loginUser = async ({ email, password }) => {
-  const user = await userModel.findOne({ email });
+ 
+  const user = await userModel.findOne({email: email}).populate("company", "name");
+ 
   if (!user)
     throw new Error("User doesn't exist");
 
   if (!(await bcrypt.compare(password, user.password)))
     throw new Error("Invalid credentials");
+
+  const companyname = user.company.name;
 
   const token = jwt.sign({ id: user._id }, config.jwtSecret, {
     expiresIn: config.jwtExpire,
@@ -27,6 +31,6 @@ export const loginUser = async ({ email, password }) => {
   const {name, phone, role} = user;
   await loginModel.create({email, token});
   
-  return { name, email, phone, role, token };
+  return { name, email, phone, role, token, companyname };
 };
  

@@ -4,7 +4,7 @@ import axios from "axios";
 const fetchProducts = async (token) => {
 
     try {
-        const result = await axios.get(`${apiEndpoint}/products`, {
+        const result = await axios.get(`${apiEndpoint}/users/products`, {
             headers: { Authorization: `Bearer ${token}`}
         });
         if(result.status === 200){        
@@ -17,7 +17,7 @@ const fetchProducts = async (token) => {
 
 const addProduct = async (product, token) => {
     try {
-        const result = await axios.post(`${apiEndpoint}/products`, {...product}, {
+        const result = await axios.post(`${apiEndpoint}/users/products`, {...product}, {
             headers: {Authorization: `Bearer ${token}`}
         });
         if(result.status === 201){        
@@ -30,7 +30,7 @@ const addProduct = async (product, token) => {
 
 const updateStatus = async (product, status, token) => {
     try {
-        const result = await axios.patch(`${apiEndpoint}/products/status/${product}`, {status}, {
+        const result = await axios.patch(`${apiEndpoint}/users/products/status/${product}`, {status}, {
             headers: {Authorization: `Bearer ${token}`}
         });
         if(result.status === 200){        
