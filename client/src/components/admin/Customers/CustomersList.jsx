@@ -19,6 +19,11 @@ function CustomersList({showEditModal, setEditData, refreshList=false}) {
         }
     };
  
+    useEffect(() => {
+        loadCustomers();
+        // eslint-disable-next-line
+    }, []);
+
     useEffect(()=> {
         if(refreshList){
             loadCustomers().then(()=> {

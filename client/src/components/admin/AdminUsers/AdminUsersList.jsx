@@ -19,12 +19,17 @@ function AdminUsersList({showEditModal, setEditData}) {
         }
     };
  
-    useEffect(()=> {
-        if(refreshList){
-            loadAdminUsers().then(()=> {
+    useEffect(() => {
+        loadAdminUsers();
+        // eslint-disable-next-line
+    }, []);
+    
+    useEffect(() => {
+        if (refreshList) {
+            loadAdminUsers().then(() => {
                 dispatch(updateRefreshAdminUsers(false));
             });
-        }           
+        }
         // eslint-disable-next-line
     }, [refreshList]);
 

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"; 
 import { defaultState } from "@js/config";
-
-// const storage = JSON.parse(localStorage.getItem("admin"));
+ 
 const initialState = defaultState.admin; 
 
 const adminSlice = createSlice({
@@ -11,13 +10,13 @@ const adminSlice = createSlice({
     login : (state, action) => {
       state.user = {...state.admin, ...action.payload};
       state.isLoggedin = true; 
-      // localStorage.setItem("admin", JSON.stringify({...state}));
+      localStorage.setItem("admin", JSON.stringify({...state}));
     },
     logout : (state) => {  
         state.user = initialState.user;    
         state.isLoggedin = initialState.isLoggedin;  
         state.logout = true;   
-        // localStorage.removeItem("admin"); 
+        localStorage.removeItem("admin"); 
     }, 
     updateRefreshAdminUsers : (state, payload) => {
       state.refreshAdminUsers = payload;

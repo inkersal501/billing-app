@@ -8,7 +8,7 @@ router.get("/", getPlans);
 router.get("/active", getActivePlans);
 router.get("/:id", getPlanById);
 router.put("/:id", updatePlan);
-router.patch("/:id/updateStatus", updateStatus);
+router.patch("/status/:id", updateStatus);
 router.delete("/:id", deletePlan);
 
 export default router;

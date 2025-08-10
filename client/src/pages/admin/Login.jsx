@@ -7,12 +7,14 @@ function Login() {
 
   const admin = useSelector((state) => state.admin.user);
   const navigate = useNavigate();
+  
   useEffect(() => {
     if(admin?.token){
       navigate("/admin/dashboard");
     }
     //eslint-disable-next-line
   }, [admin]);
+
   return (
     <LoginForm />      
   );

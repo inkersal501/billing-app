@@ -19,6 +19,11 @@ function UsersList({customerId, showEditModal, setEditData}) {
             console.error(err);
         }
     };
+    
+    useEffect(() => {
+        loadUsers();
+        // eslint-disable-next-line
+    }, []);
 
     useEffect(()=> {
         if(refreshList){ 

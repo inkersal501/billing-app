@@ -18,7 +18,12 @@ function BillingPlansList({showEditModal, setEditData}) {
             console.error(err);
         }
     };
- 
+
+    useEffect(() => {
+        loadBillingPlans();
+        // eslint-disable-next-line
+    }, []);
+
     useEffect(()=> {
         if(refreshList){
             loadBillingPlans().then(()=> {

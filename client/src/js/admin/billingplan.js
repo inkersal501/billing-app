@@ -62,7 +62,7 @@ const updateBillingPlan = async (data, planId, token) => {
 
 const updatePlanStatus = async (plan, status, token) => {
     try {
-        const result = await axios.patch(`${apiEndpoint}/admin/plans/${plan}/updatestatus`, {status}, {
+        const result = await axios.patch(`${apiEndpoint}/admin/plans/status/${plan}`, {status}, {
             headers: {Authorization: `Bearer ${token}`}
         });
         if(result.status === 200){
