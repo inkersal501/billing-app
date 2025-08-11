@@ -1,11 +1,11 @@
 import React, {useEffect, useState, useRef} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { logout } from "@store/authSlice";
+import { logout } from "@store/billsSlice";
 import { FaCaretDown, FaUserCircle } from "react-icons/fa"; 
 
 function Navbar() {
-  const user = useSelector((state) => state.auth.user);
+  const {user} = useSelector((state) => state.bills);
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ function Navbar() {
   }, []);
 
   return (
-    <div className="bg-primary h-max-[10vh] flex justify-between items-center px-4 py-2">
+    <div className="bg-primary h-max-[10vh] flex justify-between items-center px-4 py-2 mb-2">
       {user ? (
         <>           
           <div className="w-[50%] flex items-center gap-5">
@@ -53,10 +53,10 @@ function Navbar() {
                 Dashboard
               </span>
             </Link>
-            <Link to="/bills/bills">
+            <Link to="/bills/daily-bills">
               <span
                 className={`nav-link ${
-                  location.pathname === "/bills/bills" ? "active" : ""
+                  location.pathname === "/bills/daily-bills" ? "active" : ""
                 }`}
               >
                 Bills
@@ -71,6 +71,17 @@ function Navbar() {
                 Products
               </span>
             </Link>
+            {user.role==="Admin" && 
+              <Link to="/bills/users">
+                <span
+                  className={`nav-link ${
+                    location.pathname === "/bills/users" ? "active" : ""
+                  }`}
+                >
+                  Staffs
+                </span>
+              </Link>
+            }
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={toggleDropdown}

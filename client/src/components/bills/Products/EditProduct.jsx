@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from 'react-modal';
 
-const Addproduct = ({ isOpen, onRequestClose, onSubmit }) => {
-  const [form, setForm] = useState({ name: "",  price: "",  unit: "",  measure: "" });
+const EditProduct = ({ isOpen, onRequestClose, onSubmit, editData=null }) => {
+  
+    const [form, setForm] = useState({});
+    const [editId, setEditId] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
+    useEffect(()=> {
+      if(editData){ 
+        const {_id, name, price, unit, measure} = editData;
+        setForm({name, price, unit, measure});
+        setEditId(_id);
+      }
+    }, [editData]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm((prev) => ({ ...prev, [name]: value }));
+    };
 
   const handleSubmit = async () => {
     if (!form.name || !form.price || !form.unit || !form.measure) {
@@ -15,7 +25,7 @@ const Addproduct = ({ isOpen, onRequestClose, onSubmit }) => {
       return;
     }
 
-    await onSubmit(form);  
+    await onSubmit(editId, form);  
     onRequestClose();      
     setForm({ name: "", price: "", unit: "", measure: "" });
   };
@@ -26,11 +36,11 @@ const Addproduct = ({ isOpen, onRequestClose, onSubmit }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel="Add Product"
+      contentLabel="Edit Product Details"
       className="bg-white p-6 rounded-xl w-[90%] max-w-md mx-auto mt-20 outline-none"
       overlayClassName="fixed inset-0 modal-overlay bg-opacity-50 flex justify-center items-start z-50"
     >
-        <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
+        <h2 className="text-xl font-semibold mb-4">Edit Product Details</h2>
 
         <div className="space-y-3">
           <input name="name" value={form.name} onChange={handleChange}
@@ -50,11 +60,11 @@ const Addproduct = ({ isOpen, onRequestClose, onSubmit }) => {
           </button>
           <button onClick={handleSubmit}
             className="btn">
-            Add Product
+            Submit
           </button>
         </div>
     </Modal>
   );
 };
 
-export default Addproduct;
+export default EditProduct;

@@ -1,15 +1,17 @@
 import { billModel, customerModel, productModel } from "../../models/index.js";
 
 export const createBill = async (data) => {
+
   let customer;
   if(data.customer) {
     customer = await customerModel.findOne({phone: data.customer.phone});
     if(!customer) 
-      customer = await customerModel.create({...data.customer});
+      customer = await customerModel.create({...data.customer, company: data.company});
   }else{
     customer = await customerModel.findOne({name: "Anonymous"});
   }
-  // console.log(customer)
+ 
+
   let total = 0;
   for (const item of data.products) {
     const product = await productModel.findById(item.product);     
@@ -21,6 +23,7 @@ export const createBill = async (data) => {
   const newBill = await billModel.create({
     billNumber: nextBillNumber,
     customer: customer._id,
+    company: data.company,
     products: data.products,
     totalAmount: total,
   });
@@ -28,8 +31,8 @@ export const createBill = async (data) => {
   return bill;
 };
 
-export const getBills = async (startDate, endDate) => {
-  let filter = {};
+export const getBills = async (company, startDate, endDate) => {
+  let filter = {company};
   if (startDate && endDate) {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -45,7 +48,12 @@ export const getBills = async (startDate, endDate) => {
     filter.date = { $gte: start, $lte: end };
   }
 
-  const bills = await billModel.find(filter).populate("customer").populate("products.product").sort({date:-1});
-  return bills;
+  try {
+    const bills = await billModel.find(filter).populate("customer").populate("products.product").sort({date:-1});
+    return bills;
+  } catch (error) {
+    console.log(error.message);
+  }
+  
 };
  

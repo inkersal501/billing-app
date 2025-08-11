@@ -1,13 +1,11 @@
-import React from 'react'
-import Navbar from '@billscomponents/Navbar'
-import Billslist from '@billscomponents/Billslist'
+import React from 'react' 
+import Billslist from '@billscomponents/Bills/Billslist'
 
 function Bills() {
   return (
-    <div>
-        <Navbar />
-        <Billslist />
-    </div>
+     
+    <Billslist />
+     
   )
 }
 

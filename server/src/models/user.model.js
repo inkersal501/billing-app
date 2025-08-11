@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, unique: [true, "Email already exist"] },
     phone: { type: String, unique: [true, "Phone already exist"] },
     password: String,
-    role: {type: String, enum: ["User", "Admin"], default: "User" }
+    role: {type: String, enum: ["Staff", "Admin"], default: "Staff" }
   },
   { timestamps: true }
 );

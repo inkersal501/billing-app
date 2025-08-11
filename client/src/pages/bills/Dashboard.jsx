@@ -1,12 +1,10 @@
-import React from 'react'
-import Navbar from '@billscomponents/Navbar'
+import React from 'react' 
 import Analytics from '@billscomponents/Analytics'
 function Dashboard() {
   return (
-    <div>
-        <Navbar />
+    
         <Analytics />
-    </div>
+  
   )
 }
 

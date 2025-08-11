@@ -4,21 +4,10 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { jwtDecode } from "jwt-decode";
+import { isTokenExpired } from "../js/config";
 import { toast } from "react-toastify";
 import { logout } from '@store/adminSlice';
-
-const isTokenExpired = (token) => {
-    try {
-        const decoded = jwtDecode(token);
-        const currentTime = Date.now() / 1000;
-        return decoded.exp < currentTime;
-    } catch (error) {
-        console.error(error);
-        return true; 
-    }
-};
-
+ 
 const AdminLayout = () => {
   
   const admin = useSelector((state) => state.admin);

@@ -1,14 +1,11 @@
-import React from 'react'
-import Navbar from '@billscomponents/Navbar';
-import Productslist from '@billscomponents/Productslist';
+import React from 'react' 
+import Productslist from '@billscomponents/Products/Productslist';
 
 function Products() {
   return (
-    <div>
-      <Navbar />
+     
       <Productslist />
-      
-    </div>
+       
   )
 }
 

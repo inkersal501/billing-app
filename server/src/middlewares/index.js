@@ -1,3 +1,6 @@
-import Auth from "./auth.middleware.js";
+import adminAuth from "./admin/auth.middleware.js";
+import billsAuth from "./bills/auth.middleware.js";
 
-export const authMiddleware = Auth.auth;
+
+export const adminAuthMiddleware = adminAuth.auth;
+export const billsAuthMiddleware = billsAuth.auth;

@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { getPlans } from "@js/config";
 import { SiTicktick } from "react-icons/si"; 
 import { useNavigate } from "react-router-dom";
+import { BsFillLightningFill } from "react-icons/bs";
+import { BsGraphUpArrow } from "react-icons/bs";
+import { IoCloudDoneOutline } from "react-icons/io5";
+import { MdMobileFriendly } from "react-icons/md";
+import { MdOutlinePeople } from "react-icons/md";
+import { BsGraphUp } from "react-icons/bs";
 
 const Landing = () => { 
 
@@ -156,48 +162,48 @@ const Landing = () => {
         </p>
         
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-left text-gray-700">
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition">
-            <span className="text-2xl">⚡</span>
+          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
+            <span className="mt-2 bg-primary p-2 rounded"><BsFillLightningFill size={20} /></span>
             <span className="ml-3">
               <strong>Instant Billing</strong><br />
               Create and manage bills in seconds — no complicated steps.
             </span>
           </li>
 
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition">
-            <span className="text-2xl">📊</span>
+          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
+            <span className="mt-2 bg-primary p-2 rounded"><BsGraphUpArrow size={20} /></span>
             <span className="ml-3">
               <strong>Smart Reports</strong><br />
               View product sales, customer activity, and revenue insights instantly.
             </span>
           </li>
 
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition">
-            <span className="text-2xl">☁️</span>
+          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
+            <span className="mt-2 bg-primary p-2 rounded"><IoCloudDoneOutline size={20} /></span>
             <span className="ml-3">
               <strong>Cloud Powered</strong><br />
               Access your data securely anytime, anywhere — no device limits.
             </span>
           </li>
 
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition">
-            <span className="text-2xl">📱</span>
+          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
+            <span className="mt-2 bg-primary p-2 rounded"><MdMobileFriendly size={20} /></span>
             <span className="ml-3">
               <strong>Mobile-Friendly</strong><br />
               Bill customers right from your phone, wherever you are.
             </span>
           </li>
 
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition">
-            <span className="text-2xl">👥</span>
+          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
+            <span className="mt-2 bg-primary p-2 rounded"><MdOutlinePeople size={20} /></span>
             <span className="ml-3">
               <strong>Team Access Control</strong><br />
               Assign roles to staff for secure and efficient billing operations.
             </span>
           </li>
 
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition">
-            <span className="text-2xl">📈</span>
+          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
+            <span className="mt-2 bg-primary p-2 rounded"><BsGraphUp size={20} /></span>
             <span className="ml-3">
               <strong>Growth Ready</strong><br />
               Upgrade plans as you grow without any setup hassles.

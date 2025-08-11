@@ -28,6 +28,7 @@ export const loginUser = async ({ email, password }) => {
   const token = jwt.sign({ id: user._id }, config.jwtSecret, {
     expiresIn: config.jwtExpire,
   });
+  
   const {name, phone, role} = user;
   await loginModel.create({email, token});
   

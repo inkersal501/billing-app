@@ -1,4 +1,5 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const apiEndpoint = import.meta.env.VITE_API_BASE_URL;
 
@@ -13,9 +14,10 @@ const defaultState  =  {
         refreshCustomers: false,
         refreshCustomerDetails: false,
     },
-    auth: {
+    bills: {
         isLoggedin: null,
-        user: null
+        user: null,
+        refreshUsers: false,
     },
     products: {
         list: []
@@ -33,4 +35,29 @@ const getPlans = async () => {
 }
 };
  
-export { apiEndpoint, defaultState, getPlans };
+
+const isTokenExpired = (token) => {
+try {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+    return decoded.exp < currentTime;
+} catch (error) {
+    console.error(error);
+    return true; 
+}
+};
+
+const formatDateTime = (dateTime) => {
+    const formattedDateTime =
+    `${dateTime.getDate().toString().padStart(2, "0")}-` +
+    `${dateTime.toLocaleString("en-IN", { month: "short" })}-` +
+    `${dateTime.getFullYear()} ` +
+    `${dateTime.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    }).toLowerCase()}`;
+    return formattedDateTime;
+}
+export { apiEndpoint, defaultState, getPlans, isTokenExpired, formatDateTime };

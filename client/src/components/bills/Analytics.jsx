@@ -3,20 +3,14 @@ import { fetchBills } from "@billsjs/bill";
 import { useSelector } from "react-redux";
 
 import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
+  LineChart, Line, CartesianGrid,
+  XAxis, YAxis, Tooltip,
   ResponsiveContainer,
-  BarChart,
-  Bar,
-  Cell,
+  BarChart, Bar, Cell,
 } from "recharts";
 
 const Analytics = () => {
-  const user = useSelector((state) => state.auth.user);
+  const {token} = useSelector((state) => state.bills.user);
   const [bills, setBills] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -29,7 +23,7 @@ const Analytics = () => {
     }
 
     try {
-      const res = await fetchBills(url, user.token);
+      const res = await fetchBills(url, token);
       setBills(res.data);
     } catch (err) {
       console.error(err);

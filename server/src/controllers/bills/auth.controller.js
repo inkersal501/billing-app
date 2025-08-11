@@ -1,5 +1,5 @@
-import { userServices } from "../../services/index.js";
-const { authService } = userServices;
+import { billsServices } from "../../services/index.js";
+const { authService } = billsServices;
 
 export const register = async (req, res) => {
   try {

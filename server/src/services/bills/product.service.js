@@ -1,7 +1,7 @@
 import { productModel } from "../../models/index.js";
 
-export const addProduct = async (data) => {
-  const result = await productModel.create(data);
+export const addProduct = async (company, data) => {
+  const result = await productModel.create({...data, company});
   return result;
 };
 export const getProducts = async () => await productModel.find().sort({ name:1 });

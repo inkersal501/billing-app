@@ -1,6 +1,6 @@
 import express from "express"; 
-import { userControllers } from "../../controllers/index.js";
-const  {add, getAll, getByPhone, update, remove} = userControllers.customerController;
+import { billsControllers } from "../../controllers/index.js";
+const  {add, getAll, getByPhone, update, remove} = billsControllers.customerController;
 const router = express.Router(); 
 
 router.post("/", add);

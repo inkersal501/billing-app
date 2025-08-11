@@ -1,5 +1,5 @@
 import { handleLogin } from "@js/bills/auth";
-import { login } from "@store/authSlice";
+import { login } from "@store/billsSlice";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,10 @@ function LoginForm() {
     const user = await handleLogin(email, password);
     if (user) {
       dispatch(login({ ...user }));
-      navigate("/bills/dashboard");
+      if(user.role === "Admin")
+        navigate("/bills/dashboard");
+      else
+        navigate("/bills/daily-bills"); 
     }
   };  
   useEffect(() => {

@@ -7,7 +7,8 @@ import { addBill } from "@billsjs/bill";
 import { searchCustomersbyPhone } from "@billsjs/customer";
 
 const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
-  const user = useSelector((state) => state.auth.user);
+
+  const {token} = useSelector((state) => state.bills.user);
   const [customers, setCustomers] = useState([]);
   const [products, setProducts] = useState([]);
 
@@ -18,8 +19,9 @@ const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
   const [billProducts, setBillProducts] = useState([]);
   const [total, setTotal] = useState(0);
   let debounceTimer = null;
+
   const loadProducts = async () => {
-    const res = await fetchProducts(user.token);
+    const res = await fetchProducts(token);
     if (res.status) setProducts(res.data);
   };
 
@@ -45,18 +47,18 @@ const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
       return;
     }
     if (debounceTimer) {
-        clearTimeout(debounceTimer);
+      clearTimeout(debounceTimer);
     }
     if(val.length >= 4){       
 
-        debounceTimer = setTimeout(async () => {
-        const res = await searchCustomersbyPhone(val, user.token);
+      debounceTimer = setTimeout(async () => {
+        const res = await searchCustomersbyPhone(val, token);
         if (res.status) {
-            setCustomers(res.data);
+          setCustomers(res.data);
         } else {
-            setCustomers([]);
+          setCustomers([]);
         }
-        }, 500); 
+      }, 500); 
     }
   };
   const handleCustomerSelect = (cust) => {
@@ -115,7 +117,7 @@ const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
       return;
     }
 
-    const payload = {
+    const payload = {  
       customer: isAnonymous ? null : { name: cName, phone: cMobile, },
       products: billProducts.map((item) => ({
         product: item.productId,
@@ -126,7 +128,7 @@ const AddBill = ({ isOpen, onRequestClose, onBillAdded }) => {
     };
 
     try {
-      const res = await addBill(payload, user.token);
+      const res = await addBill(payload, token);
       onRequestClose();
       onBillAdded(res.data);
     } catch (err) {

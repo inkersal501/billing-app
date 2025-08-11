@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { fetchBills } from "@billsjs/bill";
 import AddBill from "./Addbill";
 import { useSelector } from "react-redux";
+import { formatDateTime } from "@js/config";
  
 const Billslist = () => {
 
-  const user     = useSelector((state) => state.auth.user);
+  const {token}     = useSelector((state) => state.bills.user);
   const [bills, setBills] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -19,7 +20,7 @@ const Billslist = () => {
     }
 
     try {
-      const res = await fetchBills(url, user.token);
+      const res = await fetchBills(url, token);
       setBills(res.data);
     } catch (err) {
       console.error(err);
@@ -108,21 +109,23 @@ const Billslist = () => {
             </tr>
           </thead>
           <tbody>
-            {bills.map((bill, index) => (
+            {bills.length > 0 && bills.map((bill, index) => (
               
               <tr key={bill._id}> 
-                <td className="border px-2 py-2">{index+1}</td>
-                <td className="border px-4 py-2">{bill.billNumber || "-"}</td>
-                <td className="border px-4 py-2">
-                  {new Date(bill.date).toLocaleDateString("en-IN") +" "+ new Date(bill.date).toLocaleTimeString("en-IN") }
+                <td className="border px-2 py-2 text-sm">{index+1}</td>
+                <td className="border px-4 py-2 text-sm">{bill.billNumber || "-"}</td>
+                <td className="border px-4 py-2 text-sm">
+                  {formatDateTime(new Date(bill.date))}
                 </td>
-                <td className="border px-4 py-2">
+                <td className="border px-4 py-2 text-sm">
                   {bill.customer?.name || "Anonymous"}
+                  <br />
+                  {bill.customer?.phone}
                 </td>
-                <td className="border px-4 py-2">
+                <td className="border px-4 py-2 text-sm">
                   ₹ {bill.totalAmount?.toFixed(2)}
                 </td>
-                <td className="border px-4 py-2">
+                <td className="border px-4 py-2 text-sm">
                   {bill.products
                     .map(
                       (p) =>
