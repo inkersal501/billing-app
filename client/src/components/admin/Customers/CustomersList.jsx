@@ -4,10 +4,11 @@ import { fetchCustomers } from "@adminjs/customer";
 import { Link } from "react-router-dom";
 import { updateRefreshCustomers } from "@store/adminSlice";
   
-function CustomersList({showEditModal, setEditData, refreshList=false}) {
+function CustomersList({showEditModal, setEditData}) {
 
     const [customers, setCustomers] = useState([]);
     const admin = useSelector((state) => state.admin.user);
+    const refreshList = useSelector((state) => state.admin.refreshCustomers);
     const dispatch = useDispatch();
 
     const loadCustomers = async () => {

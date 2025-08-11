@@ -45,15 +45,16 @@ function EditBillingPlan({isOpen, onRequestClose, editData=null}) {
  
   const handleForm = async (e) => {
     e.preventDefault();
-    const { name, priceMonthly, priceYearly } = form;
+    const { name, desc, priceMonthly, priceYearly } = form;
 
-    if (!name || !priceMonthly || !priceYearly) {
+    if (!name || !desc || !priceMonthly || !priceYearly) {
       toast.error("Name, Monthly and Yearly prices are required");
       return;
     }
 
     const payload = {
       name: form.name,
+      desc: form.desc,
       priceMonthly: Number(form.priceMonthly),
       priceYearly: Number(form.priceYearly),
       features: form.features.map(f => f.trim()).filter(f => f !== ""),
@@ -86,6 +87,11 @@ function EditBillingPlan({isOpen, onRequestClose, editData=null}) {
           <div className="flex flex-col">
             <label htmlFor="name">Billing Name</label>
             <input id="name" className="input" value={form.name} onChange={handleUpdate} />
+          </div>
+          
+          <div className="flex flex-col">
+            <label htmlFor="desc">Short Description</label>
+            <input id="desc" className="input" value={form.desc} onChange={handleUpdate} />
           </div>
 
           <div className="flex flex-col">

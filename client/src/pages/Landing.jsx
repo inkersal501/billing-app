@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import LoginForm from "@billscomponents/LoginForm";
+import React from "react";
 import { plans } from "@js/config";
 import { SiTicktick } from "react-icons/si"; 
+import { useNavigate } from "react-router-dom";
 
-const Landing = () => {
-  const [showLogin, setShowLogin] = useState(false);
+const Landing = () => { 
+
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 text-gray-800 relative">
@@ -15,31 +16,15 @@ const Landing = () => {
           <a href="#features" className="hover:text-green-600">Features</a>
           <a href="#pricing" className="hover:text-green-600">Pricing</a>
           <a href="#contact" className="hover:text-green-600">Contact</a>
-
-          {/* Button and dropdown wrapper */}
-          <div
-            className="relative"
-            onMouseEnter={() => setShowLogin(true)}
-            onMouseLeave={() => setShowLogin(false)}
-          >
-            <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+ 
+            <button onClick={()=>navigate("/bills")} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
               Login
             </button>
-
-            {/* Dropdown Login Form */}
-            {showLogin && (
-              <div className="absolute top-full right-0 mt-1 w-[400px] z-50 animate-fadeIn">
-                <div className="absolute -top-2 right-6 w-4 h-4 bg-white border-t border-l border-gray-200 rotate-45"></div>
-                <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-4">
-                  <LoginForm />
-                </div>
-              </div>
-            )}
-          </div>
+ 
         </nav>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="text-center py-24 px-4 bg-gradient-to-br from-green-50 to-white">
         <h2 className="text-4xl font-extrabold mb-4">
           Simple, Powerful & Fast Billing for Your Business
@@ -53,7 +38,7 @@ const Landing = () => {
         </button>
       </section>
 
-      {/* Features Section */}
+      {/* Features */}
       <section id="features" className="py-20 px-8 bg-white">
         <h3 className="text-3xl font-bold text-center mb-12">Key Features</h3>
         <div className="grid md:grid-cols-3 gap-10 text-center">
@@ -96,7 +81,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Pricing */}
       <section className="py-16 bg-gray-50">
         <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
           Choose Your Plan

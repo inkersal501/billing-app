@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const billingPlanSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
+  desc: {type: String, required: true},
   priceMonthly: { type: Number, required: true },
   priceYearly: { type: Number, required: true },
   features: [String],

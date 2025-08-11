@@ -42,64 +42,69 @@ function LoginForm() {
     }).toLowerCase()}`;
 
   return (
-    <form onSubmit={handleLocalSubmit}>
-      <div className="flex justify-center">
-        <div className="w-full max-w-md bg-white p-4">
-          {/* Heading */} 
-          <h5 className="text-sm text-center text-gray-800 mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <form onSubmit={handleLocalSubmit} className="w-full max-w-md bg-white shadow-lg border border-gray-300 rounded-xl p-8">
+        <div className="flex justify-center">
+          <div className="w-full max-w-md bg-white p-4">
+            {/* Heading */} 
+            <h1 className="text-2xl font-bold text-center text-gray-800">
+            BillingPro
+          </h1>
+          <p className="text-sm text-center text-gray-500 mb-6">
             Login to Daily Bills
-          </h5>
+          </p>
 
-          {/* Email */}
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-1">
-              Email
-            </label>
-            <input
-              type="text"
-              id="email"
-              placeholder="Enter your email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
-          </div>
+            {/* Email */}
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-1">
+                Email
+              </label>
+              <input
+                type="text"
+                id="email"
+                placeholder="Enter your email"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg input"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
+            </div>
 
-          {/* Password */}
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-          </div>
+            {/* Password */}
+            <div className="mb-4">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-600 mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg input"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
+            </div>
 
-          {/* Forgot password */}
-          <div className="flex justify-end mb-6">
-            <a href="#" className="text-sm text-primary hover:underline">
-              Forgot Password?
-            </a>
-          </div>
+            {/* Forgot password */}
+            <div className="flex justify-end mb-6">
+              <a href="#" className="text-sm text-primary hover:underline">
+                Forgot Password?
+              </a>
+            </div>
 
-          {/* Submit */}
-          <button
-            type="submit"
-            className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
-          >
-            Login
-          </button>
-          <div className="text-center mt-4 text-sm text-gray-500">
-            {formattedDateTime}
+            {/* Submit */}
+            <button
+              type="submit"
+              className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
+            >
+              Login
+            </button>
+            <div className="text-center mt-4 text-sm text-gray-500">
+              {formattedDateTime}
+            </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 

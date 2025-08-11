@@ -18,17 +18,17 @@ const adminSlice = createSlice({
         state.logout = true;   
         localStorage.removeItem("admin"); 
     }, 
-    updateRefreshAdminUsers : (state, payload) => {
-      state.refreshAdminUsers = payload;
+    updateRefreshAdminUsers : (state, action) => {
+      state.refreshAdminUsers = action.payload;
     },
-    updateRefreshBillingPlans : (state, payload) => {
-      state.refreshBillingPlans = payload;
+    updateRefreshBillingPlans : (state, action) => {
+      state.refreshBillingPlans = action.payload;
     },
-    updateRefreshCustomers : (state, payload) => {
-      state.refreshCustomers = payload;
+    updateRefreshCustomers : (state, action) => {
+      state.refreshCustomers = action.payload;
     },
-    updateRefreshCustomerDetails : (state, payload) => {
-      state.refreshCustomerDetails = payload;
+    updateRefreshCustomerDetails : (state, action) => {
+      state.refreshCustomerDetails = action.payload;
     },
   },
 });

@@ -7,7 +7,7 @@ function BillingPlansList({showEditModal, setEditData}) {
 
     const [plans, setPlans] = useState([]);
     const admin = useSelector((state) => state.admin.user);
-    const refreshList = useSelector((state) => state.admin.refreshAdminUsers);
+    const refreshList = useSelector((state) => state.admin.refreshBillingPlans);
     const dispatch = useDispatch();
 
     const loadBillingPlans = async () => {
@@ -24,7 +24,7 @@ function BillingPlansList({showEditModal, setEditData}) {
         // eslint-disable-next-line
     }, []);
 
-    useEffect(()=> {
+    useEffect(()=> { 
         if(refreshList){
             loadBillingPlans().then(()=> {
                 dispatch(updateRefreshBillingPlans(false));
@@ -44,7 +44,6 @@ function BillingPlansList({showEditModal, setEditData}) {
             });
             setPlans(updated);
         }
-
     };
 
     return (
@@ -58,6 +57,7 @@ function BillingPlansList({showEditModal, setEditData}) {
                             <tr className="bg-primary text-white">
                                 <th className="px-4 py-3 border">Sl.No</th>
                                 <th className="px-4 py-3 border">Plan Name</th>
+                                <th className="px-4 py-3 border">Short Desc</th>
                                 <th className="px-4 py-3 border">Monthly/Yearly Price</th>
                                 <th className="px-4 py-3 border">Bills/month</th>
                                 <th className="px-4 py-3 border">Max Users</th> 
@@ -71,6 +71,7 @@ function BillingPlansList({showEditModal, setEditData}) {
                                 <tr key={plan._id} className="hover:bg-gray-50">
                                     <td className="px-4 py-2 border">{index + 1}</td> 
                                     <td className="px-4 py-2 border">{plan.name}</td>
+                                    <td className="px-4 py-2 border">{plan.desc}</td>
                                     <td className="px-4 py-2 border">{plan.priceMonthly + "/" + plan.priceYearly}</td>
                                     <td className="px-4 py-2 border">{plan.limits.billsPerMonth}</td>
                                     <td className="px-4 py-2 border">{plan.limits.maxUsers}</td> 
