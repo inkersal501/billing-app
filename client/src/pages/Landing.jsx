@@ -1,11 +1,20 @@
-import React from "react";
-import { plans } from "@js/config";
+import React, { useEffect, useState } from "react";
+import { getPlans } from "@js/config";
 import { SiTicktick } from "react-icons/si"; 
 import { useNavigate } from "react-router-dom";
 
 const Landing = () => { 
 
   const navigate = useNavigate();
+  const [plans, setPlans] = useState([]);
+  const fetchPlans = async () => {
+      const result = await getPlans();
+      if(result.status)
+        setPlans(result.data);
+  };
+  useEffect(() => {
+    fetchPlans();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 text-gray-800 relative">
@@ -82,6 +91,7 @@ const Landing = () => {
       </section>
 
       {/* Pricing */}
+      {plans.length > 0 &&
       <section className="py-16 bg-gray-50">
         <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
           Choose Your Plan
@@ -107,7 +117,7 @@ const Landing = () => {
               <h3 className="text-2xl font-bold text-gray-900 text-center">
                 {plan.name}
               </h3>
-              <p className="text-gray-500 text-center mt-2">{plan.description}</p>
+              <p className="text-gray-500 text-center mt-2">{plan.desc}</p>
 
               <div className="text-center mt-6">
                 <p className="text-4xl font-extrabold text-gray-800">{plan.price}</p>
@@ -135,6 +145,7 @@ const Landing = () => {
           ))}
         </div>
       </section>
+      }
 
 
       {/* Why Choose Us */}
