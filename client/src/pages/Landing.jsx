@@ -22,19 +22,60 @@ const Landing = () => {
     fetchPlans();
   }, []);
 
+  const features = [
+    {title: "Product & Billing Management", desc: "Add products once and start creating daily bills instantly based on customer purchases."},
+    {title: "Role-Based Access", desc: "Owners get full control with analytics, while staff can add bills and manage customers securely."},
+    {title: "Advanced Analytics", desc: "View revenue trends, bill reports, and performance insights anytime."},
+    {title: "Cloud-Based Access", desc: "Access your billing system securely from any device — no setup headaches."},
+    {title: "Scalable Plans", desc: "From small shops to growing businesses, upgrade anytime without losing data."},
+    {title: "Reports & Exports", desc: "Export bill data and analytics in one click for compliance or accounting needs."},
+  ];
+  const why_choose = [
+    {
+      icon: <BsFillLightningFill size={20} />,
+      title: "Instant Billing",
+      description: "Create and manage bills in seconds — no complicated steps.",
+    },
+    {
+      icon: <BsGraphUpArrow size={20} />,
+      title: "Smart Reports",
+      description: "View product sales, customer activity, and revenue insights instantly.",
+    },
+    {
+      icon: <IoCloudDoneOutline size={20} />,
+      title: "Cloud Powered",
+      description: "Access your data securely anytime, anywhere — no device limits.",
+    },
+    {
+      icon: <MdMobileFriendly size={20} />,
+      title: "Mobile-Friendly",
+      description: "Bill customers right from your phone, wherever you are.",
+    },
+    {
+      icon: <MdOutlinePeople size={20} />,
+      title: "Team Access Control",
+      description: "Assign roles to staff for secure and efficient billing operations.",
+    },
+    {
+      icon: <BsGraphUp size={20} />,
+      title: "Growth Ready",
+      description: "Upgrade plans as you grow without any setup hassles.",
+    },
+  ];
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 text-gray-800 relative">
       {/* Navbar */}
-      <header className="flex items-center justify-between px-8 py-2 shadow-md bg-white relative">
+      <header className="flex items-center justify-between flex-wrap px-8 py-2 shadow-md bg-white relative">
         <h2 className="text-2xl font-bold text-green-600">BillingPro</h2>
-        <nav className="space-x-6 flex items-center">
+        <nav className="space-x-6 flex items-center justify-center ">
           <a href="#features" className="hover:text-green-600">Features</a>
           <a href="#pricing" className="hover:text-green-600">Pricing</a>
           <a href="#contact" className="hover:text-green-600">Contact</a>
  
-            <button onClick={()=>navigate("/bills")} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-              Login
-            </button>
+          <button onClick={()=>navigate("/bills")} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            Login
+          </button>
  
         </nav>
       </header>
@@ -48,57 +89,27 @@ const Landing = () => {
           Add products, register customers, and generate daily bills in seconds.
           Track revenue with real-time analytics and export full reports — from anywhere.
         </p>
-        <button className="bg-green-600 text-white px-6 py-3 rounded text-lg hover:bg-green-700">
+        <a href="#pricing" className="bg-green-600 text-white px-6 py-3 rounded text-lg hover:bg-green-700">
           Get Started for Free
-        </button>
+        </a>
       </section>
 
       {/* Features */}
       <section id="features" className="py-20 px-8 bg-white">
         <h3 className="text-3xl font-bold text-center mb-12">Key Features</h3>
         <div className="grid md:grid-cols-3 gap-10 text-center">
-          <div>
-            <h4 className="text-xl font-semibold mb-2">Product & Billing Management</h4>
-            <p className="text-gray-600">
-              Add products once and start creating daily bills instantly based on customer purchases.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xl font-semibold mb-2">Role-Based Access</h4>
-            <p className="text-gray-600">
-              Owners get full control with analytics, while staff can add bills and manage customers securely.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xl font-semibold mb-2">Advanced Analytics</h4>
-            <p className="text-gray-600">
-              View revenue trends, bill reports, and performance insights anytime.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xl font-semibold mb-2">Cloud-Based Access</h4>
-            <p className="text-gray-600">
-              Access your billing system securely from any device — no setup headaches.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xl font-semibold mb-2">Scalable Plans</h4>
-            <p className="text-gray-600">
-              From small shops to growing businesses, upgrade anytime without losing data.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xl font-semibold mb-2">Reports & Exports</h4>
-            <p className="text-gray-600">
-              Export bill data and analytics in one click for compliance or accounting needs.
-            </p>
-          </div>
+          {features.map((feature, index) => (
+            <div key={index} className="bg-white shadow rounded-xl p-4 hover:shadow-lg transition border border-gray-300 transition hover:delay-150 hover:duration-300 ease-in hover:bg-green-600 hover:text-white">
+              <h4 className="text-xl font-semibold mb-2">{feature.title}</h4>
+              <p className="text-sm">{feature.desc}</p>
+            </div>
+          ))}           
         </div>
       </section>
 
       {/* Pricing */}
       {plans.length > 0 &&
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50" id="pricing">
         <h2 className="text-4xl font-bold text-center mb-4 text-gray-800">
           Choose Your Plan
         </h2>
@@ -126,8 +137,9 @@ const Landing = () => {
               <p className="text-gray-500 text-center mt-2">{plan.desc}</p>
 
               <div className="text-center mt-6">
-                <p className="text-4xl font-extrabold text-gray-800">{plan.price}</p>
-                <p className="text-sm text-gray-500">{plan.yearlyPrice}</p>
+                <p className="text-2xl font-extrabold text-gray-800">Rs. {plan.priceMonthly} / Month</p>
+                <p>or</p>
+                <p className="text-lg text-gray-600">Rs. {plan.priceYearly} / Year</p>
               </div>
 
               <ul className="mt-6 space-y-3 text-gray-700">
@@ -162,61 +174,27 @@ const Landing = () => {
         </p>
         
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 text-left text-gray-700">
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
-            <span className="mt-2 bg-primary p-2 rounded"><BsFillLightningFill size={20} /></span>
+        {why_choose.map(({ icon, title, description }, index) => (
+          <li
+            key={index}
+            className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300"
+          >
+            <span className="mt-2 bg-primary p-2 rounded">{icon}</span>
             <span className="ml-3">
-              <strong>Instant Billing</strong><br />
-              Create and manage bills in seconds — no complicated steps.
+              <strong>{title}</strong>
+              <br />
+              {description}
             </span>
           </li>
-
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
-            <span className="mt-2 bg-primary p-2 rounded"><BsGraphUpArrow size={20} /></span>
-            <span className="ml-3">
-              <strong>Smart Reports</strong><br />
-              View product sales, customer activity, and revenue insights instantly.
-            </span>
-          </li>
-
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
-            <span className="mt-2 bg-primary p-2 rounded"><IoCloudDoneOutline size={20} /></span>
-            <span className="ml-3">
-              <strong>Cloud Powered</strong><br />
-              Access your data securely anytime, anywhere — no device limits.
-            </span>
-          </li>
-
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
-            <span className="mt-2 bg-primary p-2 rounded"><MdMobileFriendly size={20} /></span>
-            <span className="ml-3">
-              <strong>Mobile-Friendly</strong><br />
-              Bill customers right from your phone, wherever you are.
-            </span>
-          </li>
-
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
-            <span className="mt-2 bg-primary p-2 rounded"><MdOutlinePeople size={20} /></span>
-            <span className="ml-3">
-              <strong>Team Access Control</strong><br />
-              Assign roles to staff for secure and efficient billing operations.
-            </span>
-          </li>
-
-          <li className="flex items-start bg-white shadow rounded-xl p-4 hover:shadow-lg transition hover:border border-gray-300">
-            <span className="mt-2 bg-primary p-2 rounded"><BsGraphUp size={20} /></span>
-            <span className="ml-3">
-              <strong>Growth Ready</strong><br />
-              Upgrade plans as you grow without any setup hassles.
-            </span>
-          </li>
+        ))}
         </ul>
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="text-center py-8 mt-5 border-t bg-gray-50 text-sm">
+      <footer id="contact" className="text-center py-8 mt-5 border-t border-gray-300 text-sm">
         &copy; 2025 BillingPro. Built by{" "}
         <a href="https://www.linkedin.com/in/inkersal-mahendran" className="text-green-600 hover:underline">
-          Inkersal
+          Inkersal Mahendran
         </a>.
       </footer>
     </div>
