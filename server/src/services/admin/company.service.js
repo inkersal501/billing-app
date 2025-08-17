@@ -98,3 +98,46 @@ export const updateCompanyUser = async (company, data) => {
     await user.save();
     return user;
 };
+
+
+export const createCompanyFromUser = async (data) => { 
+    const check = await companyModel.findOne({email: data.email});
+    if(check){
+        throw new Error("Email already exists.");
+    }else{
+        
+        const { name, email, phone, address, gstNumber, logoUrl, plan, password } = data;
+        const planData = await billingPlanModel.findById(plan).lean();
+         
+        if(!planData)
+            throw new Error("Plan not found.");
+        const createData =  {
+            name : name,
+            email : email,
+            phone : phone,
+            address : address,
+            gstNumber : gstNumber,
+            logoUrl : logoUrl,
+            createdBy : null,
+            plan: {
+                name: planData.name,
+                priceMonthly: planData.priceMonthly,
+                priceYearly: planData.priceYearly,
+                limits: {
+                    billsPerMonth: planData.limits.billsPerMonth,
+                    maxUsers: planData.limits.maxUsers
+                }
+            } 
+        };
+        const company = await companyModel.create(createData);
+
+        const check = await userModel.findOne({company: company._id, email: data.email});
+        if(check)
+            throw new Error("Email already exists");
+
+        const userData = {company: company._id, name, email, phone, role};
+        userData.password = await bcrypt.hash(data.password, 10);
+        await userModel.create({...userData});
+        return true;
+    }
+};

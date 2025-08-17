@@ -67,3 +67,12 @@ export const updateCompanyUser = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };  
+
+export const createCompanyFromUser = async (req, res) =>{ 
+  try {
+    const company = await companyService.createCompanyFromUser(req.body);
+    res.status(201).json(company);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};

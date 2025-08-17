@@ -1,6 +1,7 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-
+import { toast } from "react-toastify";
+ 
 const apiEndpoint = import.meta.env.VITE_API_BASE_URL;
 
 const storage = JSON.parse(localStorage.getItem("admin"));
@@ -25,14 +26,14 @@ const defaultState  =  {
 }
 
 const getPlans = async () => {
-  try {
-    const result = await axios.get(`${apiEndpoint}/plans`);
-    if(result.status === 200){        
-        return {status: true, data : result.data};
+    try {
+        const result = await axios.get(`${apiEndpoint}/plans`);
+        if(result.status === 200){        
+            return {status: true, data : result.data};
+        }
+    } catch (error) { 
+        return {status: false, error};
     }
-} catch (error) { 
-    return {status: false, error};
-}
 };
  
 
@@ -60,4 +61,17 @@ const formatDateTime = (dateTime) => {
     }).toLowerCase()}`;
     return formattedDateTime;
 }
-export { apiEndpoint, defaultState, getPlans, isTokenExpired, formatDateTime };
+
+const registerBusiness = async (data) => {
+    try {
+        const result = await axios.post(`${apiEndpoint}/company`, {...data});
+        if(result.status === 201){      
+            return true;
+        }
+    } catch (error) {
+        toast.error(error.response.data.error);
+        return false;
+    }
+};
+
+export { apiEndpoint, defaultState, getPlans, isTokenExpired, formatDateTime, registerBusiness };

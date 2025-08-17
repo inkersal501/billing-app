@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import { createCustomer } from '@adminjs/customer';
 import { fetchActiveBillingPlans } from '@js/admin/billingplan';
 import { updateRefreshCustomers } from '@store/adminSlice';
- 
+
 function AddCustomerForm({isOpen, onRequestClose}) {
     
     const [form, setForm] = useState({name:"", email:"", phone:"", address:"", gstNumber:"", logoUrl:"", plan: ""});
