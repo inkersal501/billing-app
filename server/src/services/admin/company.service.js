@@ -131,12 +131,12 @@ export const createCompanyFromUser = async (data) => {
         };
         const company = await companyModel.create(createData);
 
-        const check = await userModel.findOne({company: company._id, email: data.email});
+        const check = await userModel.findOne({company: company._id, email: email});
         if(check)
             throw new Error("Email already exists");
 
-        const userData = {company: company._id, name, email, phone, role};
-        userData.password = await bcrypt.hash(data.password, 10);
+        const userData = {company: company._id, name, email, phone, role: "Admin"};
+        userData.password = await bcrypt.hash(password, 10);
         await userModel.create({...userData});
         return true;
     }
